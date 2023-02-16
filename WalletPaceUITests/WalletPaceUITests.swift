@@ -1,13 +1,13 @@
 //
-//  Wallet_PaceUITests.swift
-//  Wallet PaceUITests
+//  WalletPaceUITests.swift
+//  WalletPaceUITests
 //
-//  Created by Pedro Silva 🐰 on 11/02/2023.
+//  Created by Pedro Silva on 11/02/2023.
 //
 
 import XCTest
 
-final class Wallet_PaceUITests: XCTestCase {
+final class WalletPaceUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

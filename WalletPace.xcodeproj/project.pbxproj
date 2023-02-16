@@ -11,14 +11,15 @@
 		40FD04B32997D8D500EE2132 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40FD04B22997D8D500EE2132 /* Assets.xcassets */; };
 		40FD04B62997D8D500EE2132 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40FD04B52997D8D500EE2132 /* Preview Assets.xcassets */; };
 		40FD04B82997D8D500EE2132 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FD04B72997D8D500EE2132 /* Persistence.swift */; };
-		40FD04C62997D8D500EE2132 /* Wallet_PaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FD04C52997D8D500EE2132 /* Wallet_PaceTests.swift */; };
-		40FD04D02997D8D500EE2132 /* Wallet_PaceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FD04CF2997D8D500EE2132 /* Wallet_PaceUITests.swift */; };
-		40FD04D22997D8D500EE2132 /* Wallet_PaceUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FD04D12997D8D500EE2132 /* Wallet_PaceUITestsLaunchTests.swift */; };
+		40FD04C62997D8D500EE2132 /* WalletPaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FD04C52997D8D500EE2132 /* WalletPaceTests.swift */; };
+		40FD04D02997D8D500EE2132 /* WalletPaceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FD04CF2997D8D500EE2132 /* WalletPaceUITests.swift */; };
+		40FD04D22997D8D500EE2132 /* WalletPaceUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FD04D12997D8D500EE2132 /* WalletPaceUITestsLaunchTests.swift */; };
 		40FD04E02997D93C00EE2132 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 40FD04DF2997D93C00EE2132 /* ComposableArchitecture */; };
 		40FD04E42997D9AD00EE2132 /* WalletPace.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 40FD04E12997D9AD00EE2132 /* WalletPace.xcdatamodeld */; };
 		40FD04E52997D9AD00EE2132 /* WalletPaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FD04E32997D9AD00EE2132 /* WalletPaceApp.swift */; };
 		40FD04E82997DA0F00EE2132 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FD04E72997DA0F00EE2132 /* HomeView.swift */; };
 		40FD04EA2997DB5D00EE2132 /* HomeFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FD04E92997DB5D00EE2132 /* HomeFeature.swift */; };
+		80DB9CA0299A8F0000A9999C /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB9C9F299A8F0000A9999C /* CoreData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,14 +47,15 @@
 		40FD04B72997D8D500EE2132 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		40FD04BC2997D8D500EE2132 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		40FD04C12997D8D500EE2132 /* WalletPaceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WalletPaceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		40FD04C52997D8D500EE2132 /* Wallet_PaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet_PaceTests.swift; sourceTree = "<group>"; };
+		40FD04C52997D8D500EE2132 /* WalletPaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletPaceTests.swift; sourceTree = "<group>"; };
 		40FD04CB2997D8D500EE2132 /* WalletPaceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WalletPaceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		40FD04CF2997D8D500EE2132 /* Wallet_PaceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet_PaceUITests.swift; sourceTree = "<group>"; };
-		40FD04D12997D8D500EE2132 /* Wallet_PaceUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet_PaceUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		40FD04E22997D9AD00EE2132 /* Wallet_Pace.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Wallet_Pace.xcdatamodel; sourceTree = "<group>"; };
+		40FD04CF2997D8D500EE2132 /* WalletPaceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletPaceUITests.swift; sourceTree = "<group>"; };
+		40FD04D12997D8D500EE2132 /* WalletPaceUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletPaceUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		40FD04E22997D9AD00EE2132 /* WalletPace.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WalletPace.xcdatamodel; sourceTree = "<group>"; };
 		40FD04E32997D9AD00EE2132 /* WalletPaceApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletPaceApp.swift; sourceTree = "<group>"; };
 		40FD04E72997DA0F00EE2132 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		40FD04E92997DB5D00EE2132 /* HomeFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeature.swift; sourceTree = "<group>"; };
+		80DB9C9F299A8F0000A9999C /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,8 +88,8 @@
 			isa = PBXGroup;
 			children = (
 				40FD04AD2997D8D400EE2132 /* WalletPace */,
-				40FD04C42997D8D500EE2132 /* Wallet PaceTests */,
-				40FD04CE2997D8D500EE2132 /* Wallet PaceUITests */,
+				40FD04C42997D8D500EE2132 /* WalletPaceTests */,
+				40FD04CE2997D8D500EE2132 /* WalletPaceUITests */,
 				40FD04AC2997D8D400EE2132 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -105,6 +107,7 @@
 		40FD04AD2997D8D400EE2132 /* WalletPace */ = {
 			isa = PBXGroup;
 			children = (
+				80DB9C9C299A8C3A00A9999C /* CoreData */,
 				40FD04E62997D9F900EE2132 /* Home */,
 				40FD04B22997D8D500EE2132 /* Assets.xcassets */,
 				40FD04B02997D8D400EE2132 /* ContentView.swift */,
@@ -125,21 +128,21 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		40FD04C42997D8D500EE2132 /* Wallet PaceTests */ = {
+		40FD04C42997D8D500EE2132 /* WalletPaceTests */ = {
 			isa = PBXGroup;
 			children = (
-				40FD04C52997D8D500EE2132 /* Wallet_PaceTests.swift */,
+				40FD04C52997D8D500EE2132 /* WalletPaceTests.swift */,
 			);
-			path = "Wallet PaceTests";
+			path = WalletPaceTests;
 			sourceTree = "<group>";
 		};
-		40FD04CE2997D8D500EE2132 /* Wallet PaceUITests */ = {
+		40FD04CE2997D8D500EE2132 /* WalletPaceUITests */ = {
 			isa = PBXGroup;
 			children = (
-				40FD04CF2997D8D500EE2132 /* Wallet_PaceUITests.swift */,
-				40FD04D12997D8D500EE2132 /* Wallet_PaceUITestsLaunchTests.swift */,
+				40FD04CF2997D8D500EE2132 /* WalletPaceUITests.swift */,
+				40FD04D12997D8D500EE2132 /* WalletPaceUITestsLaunchTests.swift */,
 			);
-			path = "Wallet PaceUITests";
+			path = WalletPaceUITests;
 			sourceTree = "<group>";
 		};
 		40FD04E62997D9F900EE2132 /* Home */ = {
@@ -149,6 +152,14 @@
 				40FD04E92997DB5D00EE2132 /* HomeFeature.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		80DB9C9C299A8C3A00A9999C /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				80DB9C9F299A8F0000A9999C /* CoreData.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,6 +299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				40FD04B82997D8D500EE2132 /* Persistence.swift in Sources */,
+				80DB9CA0299A8F0000A9999C /* CoreData.swift in Sources */,
 				40FD04E52997D9AD00EE2132 /* WalletPaceApp.swift in Sources */,
 				40FD04B12997D8D400EE2132 /* ContentView.swift in Sources */,
 				40FD04E82997DA0F00EE2132 /* HomeView.swift in Sources */,
@@ -300,7 +312,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40FD04C62997D8D500EE2132 /* Wallet_PaceTests.swift in Sources */,
+				40FD04C62997D8D500EE2132 /* WalletPaceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,8 +320,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40FD04D22997D8D500EE2132 /* Wallet_PaceUITestsLaunchTests.swift in Sources */,
-				40FD04D02997D8D500EE2132 /* Wallet_PaceUITests.swift in Sources */,
+				40FD04D22997D8D500EE2132 /* WalletPaceUITestsLaunchTests.swift in Sources */,
+				40FD04D02997D8D500EE2132 /* WalletPaceUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -641,9 +653,9 @@
 		40FD04E12997D9AD00EE2132 /* WalletPace.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				40FD04E22997D9AD00EE2132 /* Wallet_Pace.xcdatamodel */,
+				40FD04E22997D9AD00EE2132 /* WalletPace.xcdatamodel */,
 			);
-			currentVersion = 40FD04E22997D9AD00EE2132 /* Wallet_Pace.xcdatamodel */;
+			currentVersion = 40FD04E22997D9AD00EE2132 /* WalletPace.xcdatamodel */;
 			path = WalletPace.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

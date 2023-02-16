@@ -1,13 +1,13 @@
 //
-//  Wallet_PaceUITestsLaunchTests.swift
-//  Wallet PaceUITests
+//  WalletPaceUITestsLaunchTests.swift
+//  WalletPaceUITests
 //
-//  Created by Pedro Silva 🐰 on 11/02/2023.
+//  Created by Pedro Silva on 11/02/2023.
 //
 
 import XCTest
 
-final class Wallet_PaceUITestsLaunchTests: XCTestCase {
+final class WalletPaceUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
