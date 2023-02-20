@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		4053275E299EBA13007A65B1 /* ConfigaWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4053275D299EBA13007A65B1 /* ConfigaWalletView.swift */; };
 		40532760299EBA42007A65B1 /* ConfigaWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4053275F299EBA42007A65B1 /* ConfigaWallet.swift */; };
+		4094E16629A3E31A00EC6F65 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4094E16529A3E31A00EC6F65 /* AppDelegate.swift */; };
+		4094E16829A3E70800EC6F65 /* CoreDataTestKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4094E16729A3E70800EC6F65 /* CoreDataTestKey.swift */; };
+		4094E16A29A3EDEF00EC6F65 /* CoreDataLiveKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4094E16929A3EDEF00EC6F65 /* CoreDataLiveKey.swift */; };
 		40FD04B12997D8D400EE2132 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FD04B02997D8D400EE2132 /* ContentView.swift */; };
 		40FD04B32997D8D500EE2132 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40FD04B22997D8D500EE2132 /* Assets.xcassets */; };
 		40FD04B62997D8D500EE2132 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40FD04B52997D8D500EE2132 /* Preview Assets.xcassets */; };
@@ -44,6 +47,9 @@
 /* Begin PBXFileReference section */
 		4053275D299EBA13007A65B1 /* ConfigaWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigaWalletView.swift; sourceTree = "<group>"; };
 		4053275F299EBA42007A65B1 /* ConfigaWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigaWallet.swift; sourceTree = "<group>"; };
+		4094E16529A3E31A00EC6F65 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4094E16729A3E70800EC6F65 /* CoreDataTestKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestKey.swift; sourceTree = "<group>"; };
+		4094E16929A3EDEF00EC6F65 /* CoreDataLiveKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataLiveKey.swift; sourceTree = "<group>"; };
 		40FD04AB2997D8D400EE2132 /* WalletPace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WalletPace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40FD04B02997D8D400EE2132 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		40FD04B22997D8D500EE2132 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -130,6 +136,7 @@
 				40FD04B42997D8D500EE2132 /* Preview Content */,
 				40FD04E12997D9AD00EE2132 /* WalletPace.xcdatamodeld */,
 				40FD04E32997D9AD00EE2132 /* WalletPaceApp.swift */,
+				4094E16529A3E31A00EC6F65 /* AppDelegate.swift */,
 			);
 			path = WalletPace;
 			sourceTree = "<group>";
@@ -172,6 +179,8 @@
 			isa = PBXGroup;
 			children = (
 				80DB9C9F299A8F0000A9999C /* CoreData.swift */,
+				4094E16729A3E70800EC6F65 /* CoreDataTestKey.swift */,
+				4094E16929A3EDEF00EC6F65 /* CoreDataLiveKey.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -312,6 +321,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4094E16829A3E70800EC6F65 /* CoreDataTestKey.swift in Sources */,
 				40FD04B82997D8D500EE2132 /* Persistence.swift in Sources */,
 				80DB9CA0299A8F0000A9999C /* CoreData.swift in Sources */,
 				40FD04E52997D9AD00EE2132 /* WalletPaceApp.swift in Sources */,
@@ -319,7 +329,9 @@
 				4053275E299EBA13007A65B1 /* ConfigaWalletView.swift in Sources */,
 				40FD04E82997DA0F00EE2132 /* HomeView.swift in Sources */,
 				40FD04EA2997DB5D00EE2132 /* HomeFeature.swift in Sources */,
+				4094E16A29A3EDEF00EC6F65 /* CoreDataLiveKey.swift in Sources */,
 				40FD04E42997D9AD00EE2132 /* WalletPace.xcdatamodeld in Sources */,
+				4094E16629A3E31A00EC6F65 /* AppDelegate.swift in Sources */,
 				40532760299EBA42007A65B1 /* ConfigaWallet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

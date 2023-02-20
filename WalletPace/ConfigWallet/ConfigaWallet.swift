@@ -7,7 +7,7 @@
 
 import ComposableArchitecture
 
-struct ConfigWalletReducer: ReducerProtocol {
+struct ConfigWallet: ReducerProtocol {
     struct State: Equatable {
         var wallet: Wallet?
         var liabilities: [Liability]?
@@ -22,11 +22,13 @@ struct ConfigWalletReducer: ReducerProtocol {
     }
     
     @Dependency(\.continuousClock) var clock
+    @Dependency(\.coredata) var coredata
     
     var body: some ReducerProtocol<State, Action> {
       Reduce { state, action in
           switch action {
           case .walletUpdated(let text):
+              print(text)
               state.currentWalletValue = text
               return .none
 //              guard let value = Float(text) else { return .none }

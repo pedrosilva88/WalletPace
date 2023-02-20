@@ -9,7 +9,7 @@ import ComposableArchitecture
 import SwiftUI
 
 struct ConfigaWalletView: View {
-    let store: StoreOf<ConfigWalletReducer>
+    let store: StoreOf<ConfigWallet>
     @State private var favoriteColor = 0
 
     var body: some View {
@@ -19,7 +19,7 @@ struct ConfigaWalletView: View {
                     Section {
                         TextField("Current wallet value", text: viewStore.binding(
                             get: \.currentWalletValue,
-                            send: ConfigWalletReducer.Action.walletUpdated
+                            send: ConfigWallet.Action.walletUpdated
                           )).keyboardType(.numberPad)
                     }
                     Section {
@@ -59,7 +59,7 @@ struct ConfigaWalletView: View {
 struct ConfigaWalletView_Previews: PreviewProvider {
   static var previews: some View {
       ConfigaWalletView(
-        store: Store(initialState: ConfigWalletReducer.State(liabilities: [Liability(amount: 4000, date: .now),
+        store: Store(initialState: ConfigWallet.State(liabilities: [Liability(amount: 4000, date: .now),
                                                                            Liability(amount: 4000, date: .now),
                                                                            Liability(amount: 4000, date: .now),
                                                                            Liability(amount: 4000, date: .now),
@@ -93,7 +93,7 @@ struct ConfigaWalletView_Previews: PreviewProvider {
                                                                            Liability(amount: 4000, date: .now),
                                                                            Liability(amount: 4000, date: .now)],
                                                              incomes: [Income(amount: 10000,
-                                                                              date: .now)]), reducer: ConfigWalletReducer())
+                                                                              date: .now)]), reducer: ConfigWallet())
       )
   }
 }

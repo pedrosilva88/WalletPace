@@ -8,7 +8,7 @@
 import Foundation
 import ComposableArchitecture
 
-struct HomeReducer: ReducerProtocol {
+struct Home: ReducerProtocol {
     struct State: Equatable {
         var wallet: Wallet?
         var liabilities: [Liability]?
@@ -35,16 +35,28 @@ struct HomeReducer: ReducerProtocol {
             return ((sumIncome*12/365/24/60/60) - (sumLiability*12/365/24/60/60))
         }
         
-        var isConfigBeingPresented: Bool = false
+        var isConfigBeingPresented: Bool = false {
+            didSet {
+                print(self.isConfigBeingPresented)
+            }
+        }
+        
+        var configWallet: ConfigWallet.State
+        
+        init(configWallet: ConfigWallet.State = .init()) {
+            self.configWallet = configWallet
+        }
     }
 
     enum Action: Equatable {
         case task
         case updateWalletAmount
-        case newWalletAmount(_ value: Float)
+        case newWalletAmount
+        case configWalletPresented(isPresented: Bool)
     }
     
     @Dependency(\.continuousClock) var clock
+    @Dependency(\.coredata) var coredata
     
     var body: some ReducerProtocol<State, Action> {
         Reduce { state, action in
@@ -57,11 +69,15 @@ struct HomeReducer: ReducerProtocol {
                             await send(.updateWalletAmount)
                         }}
             case .updateWalletAmount:
-//                guard !state.shouldUpdateValue else { return .none }
-                return EffectTask(value: .newWalletAmount((state.amount + state.incrementPace)))
+                guard !state.isConfigBeingPresented else { return .none }
+                coredata.createNewWalletActivity(amount: (state.amount + state.incrementPace))
+                return EffectTask(value: .newWalletAmount)
             case .newWalletAmount:
+                state.wallet = coredata.fetchWallet()
                 return .none
-                
+            case let .configWalletPresented(isPresented: isPresented):
+                state.isConfigBeingPresented = isPresented
+                return .none
             }
         }
     }

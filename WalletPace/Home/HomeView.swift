@@ -10,49 +10,43 @@ import SwiftUI
 import CoreData
 
 struct HomeView: View {
-    let store: StoreOf<AppReducer>
-    @State var isConfigWalletPresented: Bool = false
-    
+    let store: StoreOf<Home>
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             NavigationView {
                 VStack {
-                    Text("\(viewStore.homeState.amount, specifier: "%.6f")")
+                    Text("\(viewStore.amount, specifier: "%.6f")")
                     HStack {
-                        Text("\(viewStore.homeState.walletInAWeek, specifier: "%.2f")")
-                        Text("\(viewStore.homeState.walletInAMonth, specifier: "%.2f")")
-                        Text("\(viewStore.homeState.walletInAYear, specifier: "%.2f")")
+                        Text("\(viewStore.walletInAWeek, specifier: "%.2f")")
+                        Text("\(viewStore.walletInAMonth, specifier: "%.2f")")
+                        Text("\(viewStore.walletInAYear, specifier: "%.2f")")
                     }.padding(.top)
                     
                     HStack {
-                        Text("\(viewStore.homeState.incrementInASecond, specifier: "%.2f")")
-                        Text("\(viewStore.homeState.incrementInAMinute, specifier: "%.2f")")
-                        Text("\(viewStore.homeState.incrementInAHour, specifier: "%.2f")")
-                        Text("\(viewStore.homeState.incrementInADay, specifier: "%.2f")")
-                        Text("\(viewStore.homeState.incrementInAMonth, specifier: "%.2f")")
-                        Text("\(viewStore.homeState.incrementInAYear, specifier: "%.2f")")
+                        Text("\(viewStore.incrementInASecond, specifier: "%.2f")")
+                        Text("\(viewStore.incrementInAMinute, specifier: "%.2f")")
+                        Text("\(viewStore.incrementInAHour, specifier: "%.2f")")
+                        Text("\(viewStore.incrementInADay, specifier: "%.2f")")
+                        Text("\(viewStore.incrementInAMonth, specifier: "%.2f")")
+                        Text("\(viewStore.incrementInAYear, specifier: "%.2f")")
 
                     }.padding(.top)
                 }
                 
                 .navigationBarTitle("Wallet Pace")
-                .navigationBarItems(trailing: Button("Config Wallet") { isConfigWalletPresented = true })
+                .navigationBarItems(trailing: Button("Config Wallet") { viewStore.send(.configWalletPresented(isPresented: true)) })
             }
-            .sheet(isPresented: $isConfigWalletPresented,
-                   content: { ConfigaWalletView(store:store.scope(state: \.configWalletState,
-                                                                  action: AppReducer.Action.configWallet))})
+            .sheet(isPresented: viewStore.binding(
+                get: { $0.isConfigBeingPresented },
+                send: { .configWalletPresented(isPresented: $0) }
+            )) { ConfigaWalletView.init(store:
+                                            Store(initialState: viewStore.state.configWallet,
+                                                  reducer: ConfigWallet()))
+            }
             .task {
-                await viewStore.send(.home(.task)).finish()
+                await viewStore.send(.task).finish()
             }
-//            .sheet(item: viewStore.binding(get: { $0.homeState.batatas }, send: AppReducer.Action.home(.updateWalletAmount)), content:  { _ in
-//
-//                EmptyView()
-////                ConfigaWalletView(store:store.scope(state: \.configWalletState, action: AppReducer.Action.configWallet))
-//            })
-
         }
-        
-        
     }
 }
 
@@ -60,7 +54,7 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
   static var previews: some View {
       HomeView(
-        store: Store(initialState: AppReducer.State(), reducer: AppReducer())
+        store: Store(initialState: Home.State(), reducer: Home())
       )
   }
 }
