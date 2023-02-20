@@ -34,6 +34,7 @@ struct CoreDataReducer: ReducerProtocol {
                       await send(.cleanWalletActivity)
                   }}
         case .fetchWallet:
+//            removeAllWalletActivity()
             let fetchRequest: NSFetchRequest<Wallet> = Wallet.fetchRequest()
             do {
                 let wallets = try persistenceController.context.fetch(fetchRequest)
@@ -69,5 +70,33 @@ struct CoreDataReducer: ReducerProtocol {
         default: return .none
         }
     }
+    
+    private func removeAllWalletActivity() {
+        let fetchRequest: NSFetchRequest<Wallet> = Wallet.fetchRequest()
+        try? persistenceController.context.fetch(fetchRequest).forEach { persistenceController.context.delete($0) }
+    }
 }
 
+extension Liability {
+    convenience init(amount: Float, date: Date) {
+        let context = PersistenceController.shared.context
+        let entity = NSEntityDescription.entity(forEntityName: "Liability", in: context)!
+        
+        self.init(entity: entity, insertInto: context)
+        self.amount = amount
+        self.dateCreated = date
+        self.id = UUID()
+    }
+}
+
+
+extension Income {
+    convenience init(amount: Float, date: Date) {
+        let context = PersistenceController.shared.context
+        let entity = NSEntityDescription.entity(forEntityName: "Income", in: context)!
+        self.init(entity: entity, insertInto: context)
+        self.amount = amount
+        self.dateCreated = date
+        self.id = UUID()
+    }
+}

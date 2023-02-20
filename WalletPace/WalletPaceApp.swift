@@ -17,6 +17,7 @@ struct AppReducer: ReducerProtocol {
     enum Action {
         case coredata(CoreDataReducer.Action)
         case home(HomeReducer.Action)
+        case configWallet(ConfigWalletReducer.Action)
     }
     
     var body: some ReducerProtocol<State, Action> {
@@ -25,6 +26,10 @@ struct AppReducer: ReducerProtocol {
         }
         Scope(state: \.homeState, action: /Action.home) {
             HomeReducer()
+        }
+        
+        Scope(state: \.configWalletState, action: /Action.configWallet) {
+            ConfigWalletReducer()
         }
         
         Reduce { state, action in
@@ -36,6 +41,8 @@ struct AppReducer: ReducerProtocol {
             case .home(HomeReducer.Action.task):
                 return EffectTask.merge(EffectTask(value: Action.coredata(.task)), EffectTask(value: Action.coredata(.fetchWallet)))
             case .home(HomeReducer.Action.newWalletAmount(let value)):
+                return EffectTask(value: Action.coredata(CoreDataReducer.Action.newWalletValue(value: value)))
+            case .configWallet(ConfigWalletReducer.Action.newWalletAmount(let value)):
                 return EffectTask(value: Action.coredata(CoreDataReducer.Action.newWalletValue(value: value)))
             default: return .none
             }
@@ -55,6 +62,19 @@ extension AppReducer.State {
         }
         set {
             self.wallet = newValue.wallet
+        }
+    }
+}
+
+extension AppReducer.State {
+    var configWalletState: ConfigWalletReducer.State {
+        get {
+            return ConfigWalletReducer.State(wallet: self.wallet, liabilities: self.liabilities, incomes: self.incomes)
+        }
+        set {
+            self.wallet = newValue.wallet
+            self.liabilities = newValue.liabilities
+            self.incomes = newValue.incomes
         }
     }
 }
