@@ -28,11 +28,11 @@ struct ConfigWallet: ReducerProtocol {
       Reduce { state, action in
           switch action {
           case .walletUpdated(let text):
-              print(text)
+              
               state.currentWalletValue = text
+              guard let value = Float(text) else { return .none }
+              coredata.createNewWalletActivity(amount: value)
               return .none
-//              guard let value = Float(text) else { return .none }
-//              return EffectTask.send(.newWalletAmount(value: value))
           default: return .none
           }
       }

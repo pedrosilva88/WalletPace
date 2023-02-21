@@ -43,9 +43,7 @@ struct AppReducer: ReducerProtocol {
 final class AppDelegate: NSObject, UIApplicationDelegate {
     let store = Store(
       initialState: AppReducer.State(),
-      reducer: AppReducer().transformDependency(\.self) {
-          $0.coredata = .live()
-      }
+      reducer: AppReducer().dependency(\.coredata, .live())
     )
 
     var viewStore: ViewStore<Void, AppReducer.Action> {
@@ -64,7 +62,6 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct WalletPaceApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-    
     init() {}
     
     var body: some Scene {

@@ -15,7 +15,7 @@ struct HomeView: View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             NavigationView {
                 VStack {
-                    Text("\(viewStore.amount, specifier: "%.6f")")
+                    Text("\(viewStore.amount, specifier: "%.4f")")
                     HStack {
                         Text("\(viewStore.walletInAWeek, specifier: "%.2f")")
                         Text("\(viewStore.walletInAMonth, specifier: "%.2f")")
@@ -39,9 +39,7 @@ struct HomeView: View {
             .sheet(isPresented: viewStore.binding(
                 get: { $0.isConfigBeingPresented },
                 send: { .configWalletPresented(isPresented: $0) }
-            )) { ConfigaWalletView.init(store:
-                                            Store(initialState: viewStore.state.configWallet,
-                                                  reducer: ConfigWallet()))
+            )) { ConfigaWalletView.init(store: store.scope(state: \.configWallet, action: Home.Action.configWallet))
             }
             .task {
                 await viewStore.send(.task).finish()

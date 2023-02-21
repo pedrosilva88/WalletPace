@@ -20,7 +20,7 @@ struct ConfigaWalletView: View {
                         TextField("Current wallet value", text: viewStore.binding(
                             get: \.currentWalletValue,
                             send: ConfigWallet.Action.walletUpdated
-                          )).keyboardType(.numberPad)
+                        )).keyboardType(.numberPad)
                     }
                     Section {
                         Picker("", selection: $favoriteColor) {

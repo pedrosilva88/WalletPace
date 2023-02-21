@@ -53,12 +53,17 @@ struct Home: ReducerProtocol {
         case updateWalletAmount
         case newWalletAmount
         case configWalletPresented(isPresented: Bool)
+        case configWallet(ConfigWallet.Action)
     }
     
     @Dependency(\.continuousClock) var clock
     @Dependency(\.coredata) var coredata
     
     var body: some ReducerProtocol<State, Action> {
+        Scope(state: \.configWallet, action: /Action.configWallet) {
+            ConfigWallet()
+        }
+        
         Reduce { state, action in
             switch action {
             case .task:
@@ -78,6 +83,7 @@ struct Home: ReducerProtocol {
             case let .configWalletPresented(isPresented: isPresented):
                 state.isConfigBeingPresented = isPresented
                 return .none
+            case .configWallet: return .none
             }
         }
     }
