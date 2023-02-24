@@ -9,15 +9,11 @@ import ComposableArchitecture
 
 public struct AppDelegateReducer: ReducerProtocol {
     public struct State: Equatable { }
-//  public typealias State = UserSettings
-
-  public enum Action: Equatable {
-    case didFinishLaunching
-//    case didRegisterForRemoteNotifications(TaskResult<Data>)
-//    case userNotifications(UserNotificationClient.DelegateEvent)
-//    case userSettingsLoaded(TaskResult<UserSettings>)
-  }
-
+    
+    public enum Action: Equatable {
+        case didFinishLaunching
+    }
+    
     
     public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         return .none

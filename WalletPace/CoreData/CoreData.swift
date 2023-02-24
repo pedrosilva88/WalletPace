@@ -7,13 +7,26 @@
 
 import SwiftUI
 import CoreData
+import Combine
 import ComposableArchitecture
 
-public struct CoreData {
+public struct CoreData {    
+    var walletTask: () -> PassthroughSubject<Wallet?, Never>
+    var incomesTask: () -> PassthroughSubject<[Income], Never>
+    var liabilitiesTask: () -> PassthroughSubject<[Liability], Never>
+    
     var persistenceController = PersistenceController.shared
     @Environment(\.managedObjectContext) var context
     @Dependency(\.continuousClock) var clock
-
+    
+    public init(walletTask: @escaping () -> PassthroughSubject<Wallet?, Never> = { PassthroughSubject() },
+                incomesTask: @escaping () -> PassthroughSubject<[Income], Never> = { PassthroughSubject() },
+                liabilitiesTask: @escaping () -> PassthroughSubject<[Liability], Never> = { PassthroughSubject() }) {
+        self.walletTask = walletTask
+        self.incomesTask = incomesTask
+        self.liabilitiesTask = liabilitiesTask
+    }
+    
     func clearWalletActivity() {
         let fetchRequest: NSFetchRequest<Wallet> = Wallet.fetchRequest()
         do {
@@ -23,27 +36,42 @@ public struct CoreData {
                 wallets[0...(wallets.count-10)].forEach { persistenceController.context.delete($0) }
             }
         } catch {
-            print("Unable to Fetch Wallets, (\(error))")
+            print("Unable to Remove Wallets, (\(error))")
         }
     }
     
-    func fetchWallet() -> Wallet? {
+    func loadWallet() {
         //            removeAllWalletActivity()
 
         let fetchRequest: NSFetchRequest<Wallet> = Wallet.fetchRequest()
         do {
             let wallets = try persistenceController.context.fetch(fetchRequest)
-            guard let item = wallets.last else { return .none }
-            return item
+            guard let item = wallets.last else { return }
+            walletTask().send(item)
         } catch {
             print("Unable to Fetch Wallets, (\(error))")
-            return nil
         }
     }
     
-    func fetchIncomes() -> [Income] { return [.mock] }
+    func loadIncomes() {
+        let fetchRequest: NSFetchRequest<Income> = Income.fetchRequest()
+        do {
+            let incomes = try persistenceController.context.fetch(fetchRequest)
+            incomesTask().send(incomes)
+        } catch {
+            print("Unable to Fetch Incomes, (\(error))")
+        }
+    }
     
-    func fetchLiabilities() -> [Liability] { return [.mock] }
+    func loadLiabilities() {
+        let fetchRequest: NSFetchRequest<Liability> = Liability.fetchRequest()
+        do {
+            let liabilities = try persistenceController.context.fetch(fetchRequest)
+            liabilitiesTask().send(liabilities)
+        } catch {
+            print("Unable to Fetch Liabilities, (\(error))")
+        }
+    }
     
     func createNewWalletActivity(amount: Float) {
         let item = Wallet(context: persistenceController.context)
@@ -52,15 +80,39 @@ public struct CoreData {
         item.dateCreated = .now
         item.id = UUID()
         try? persistenceController.context.save()
+        
+        walletTask().send(item)
     }
     
-    func createNewIncome(amount: Float) {}
+    func createNewIncome(amount: Float) {
+        let item = Income(context: persistenceController.context)
+
+        item.amount = amount
+        item.dateCreated = .now
+        item.id = UUID()
+        try? persistenceController.context.save()
+        loadIncomes()
+    }
     
-    func createNewLiability(amount: Float) {}
+    func createNewLiability(amount: Float) {
+        let item = Liability(context: persistenceController.context)
+
+        item.amount = amount
+        item.dateCreated = .now
+        item.id = UUID()
+        try? persistenceController.context.save()
+        loadLiabilities()
+    }
     
-    func removeIncome(_ item: Income) {}
+    func removeIncome(_ item: Income) {
+        persistenceController.context.delete(item)
+        loadIncomes()
+    }
     
-    func removeLiablity(_ item: Liability) {}
+    func removeLiablity(_ item: Liability) {
+        persistenceController.context.delete(item)
+        loadLiabilities()
+    }
         
     private func removeAllWalletActivity() {
         let fetchRequest: NSFetchRequest<Wallet> = Wallet.fetchRequest()

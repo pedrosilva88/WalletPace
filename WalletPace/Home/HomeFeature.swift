@@ -11,8 +11,8 @@ import ComposableArchitecture
 struct Home: ReducerProtocol {
     struct State: Equatable {
         var wallet: Wallet?
-        var liabilities: [Liability]?
-        var incomes: [Income]?
+        var liabilities: [Liability] = []
+        var incomes: [Income] = []
         
         var amount: Float { wallet?.amount ?? 0 }
         
@@ -29,8 +29,8 @@ struct Home: ReducerProtocol {
         var incrementInAYear: Float { incrementPace*60*60*24*30*12 }
         
         var incrementPace: Float {
-            let sumIncome = incomes?.reduce(0, { return $0 + $1.amount }) ?? 10000
-            let sumLiability = liabilities?.reduce(0, { return $0 + $1.amount }) ?? 4000
+            let sumIncome = incomes.reduce(0, { return $0 + $1.amount })
+            let sumLiability = liabilities.reduce(0, { return $0 + $1.amount })
             // its being measured by month
             return ((sumIncome*12/365/24/60/60) - (sumLiability*12/365/24/60/60))
         }
@@ -41,11 +41,7 @@ struct Home: ReducerProtocol {
             }
         }
         
-        var configWallet: ConfigWallet.State
-        
-        init(configWallet: ConfigWallet.State = .init()) {
-            self.configWallet = configWallet
-        }
+//        var configWallet: ConfigWallet.State
     }
 
     enum Action: Equatable {
@@ -54,6 +50,9 @@ struct Home: ReducerProtocol {
         case newWalletAmount
         case configWalletPresented(isPresented: Bool)
         case configWallet(ConfigWallet.Action)
+        case walletResponse(Wallet?)
+        case incomesResponse([Income])
+        case liabilitiesResponse([Liability])
     }
     
     @Dependency(\.continuousClock) var clock
@@ -67,6 +66,10 @@ struct Home: ReducerProtocol {
         Reduce { state, action in
             switch action {
             case .task:
+                coredata.loadWallet()
+                coredata.loadIncomes()
+                coredata.loadLiabilities()
+
                 return
                     .run { send in
                         
@@ -76,15 +79,42 @@ struct Home: ReducerProtocol {
             case .updateWalletAmount:
                 guard !state.isConfigBeingPresented else { return .none }
                 coredata.createNewWalletActivity(amount: (state.amount + state.incrementPace))
-                return EffectTask(value: .newWalletAmount)
-            case .newWalletAmount:
-                state.wallet = coredata.fetchWallet()
                 return .none
             case let .configWalletPresented(isPresented: isPresented):
                 state.isConfigBeingPresented = isPresented
                 return .none
-            case .configWallet: return .none
+            case .configWallet(ConfigWallet.Action.walletUpdated):
+                return .none
+            case .configWallet(ConfigWallet.Action.didDismissAddItemView):
+                return .none
+                
+            case .walletResponse(let wallet):
+                state.wallet = wallet
+                return .none
+            case .incomesResponse(let incomes):
+                state.incomes = incomes
+                return .none
+            case .liabilitiesResponse(let liabilities):
+                state.liabilities = liabilities
+                return .none
+                
+            default: return .none
             }
+        }
+    }
+}
+
+extension Home.State {
+    var configWallet: ConfigWallet.State {
+        get {
+            ConfigWallet.State(wallet: self.wallet,
+                               incomes: self.incomes,
+                               liabilities: self.liabilities)
+        }
+        set {
+            self.wallet = newValue.wallet
+            self.incomes = newValue.incomes
+            self.liabilities = newValue.liabilities
         }
     }
 }

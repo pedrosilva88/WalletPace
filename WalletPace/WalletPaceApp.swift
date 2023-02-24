@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 import ComposableArchitecture
 
 struct AppReducer: ReducerProtocol {
@@ -31,8 +32,31 @@ struct AppReducer: ReducerProtocol {
         Reduce { state, action in
             switch action {
             case .appDelegate(.didFinishLaunching):
-                state.home.wallet = coredata.fetchWallet()
-                return .none
+                return EffectTask.merge(
+                    coredata.walletTask()
+                        .receive(on: DispatchQueue.main)
+                        .replaceError(with: nil)
+                        .eraseToEffect()
+                        .map({ wallet in
+                            return Action.home(.walletResponse(wallet))
+                        }),
+                    
+                    coredata.incomesTask()
+                        .receive(on: DispatchQueue.main)
+                        .replaceError(with: [])
+                        .eraseToEffect()
+                        .map({ incomes in
+                            return Action.home(.incomesResponse(incomes))
+                        }),
+                    
+                    coredata.liabilitiesTask()
+                        .receive(on: DispatchQueue.main)
+                        .replaceError(with: [])
+                        .eraseToEffect()
+                        .map({ liabilities in
+                            return Action.home(.liabilitiesResponse(liabilities))
+                        })
+                )
             default: return .none
             }
             
@@ -42,22 +66,22 @@ struct AppReducer: ReducerProtocol {
 
 final class AppDelegate: NSObject, UIApplicationDelegate {
     let store = Store(
-      initialState: AppReducer.State(),
-      reducer: AppReducer().dependency(\.coredata, .live())
+        initialState: AppReducer.State(),
+        reducer: AppReducer().dependency(\.coredata, .live)
     )
-
+    
     var viewStore: ViewStore<Void, AppReducer.Action> {
-      ViewStore(self.store.stateless)
+        ViewStore(self.store.stateless)
     }
-
+    
     func application(
-      _ application: UIApplication,
-      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
-      self.viewStore.send(.appDelegate(.didFinishLaunching))
-      return true
+        self.viewStore.send(.appDelegate(.didFinishLaunching))
+        return true
     }
-  }
+}
 
 @main
 struct WalletPaceApp: App {
@@ -68,8 +92,5 @@ struct WalletPaceApp: App {
         WindowGroup {
             HomeView(store: appDelegate.store.scope(state: \.home, action: AppReducer.Action.home))
         }
-//        .onChange(of: self.scenePhase) {
-//            self.appDelegate.viewStore.send(.didChangeScenePhase($0))
-//          }
     }
 }
