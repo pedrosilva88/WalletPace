@@ -56,7 +56,7 @@ struct ConfigaWalletView: View {
                             }
                         }
                     }
-                    FloatingButton(action: {
+                    DoubleingButton(action: {
                         viewStore.send(.didTapToShowAddItemView)
                     }, icon: "plus")
                     
@@ -81,7 +81,7 @@ struct ConfigaWalletView: View {
     }
 }
 
-struct FloatingButton: View {
+struct DoubleingButton: View {
     let action: () -> Void
     let icon: String
     let color: Color = .green

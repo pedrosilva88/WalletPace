@@ -14,7 +14,8 @@ struct ConfigWallet: ReducerProtocol {
         var incomes: [Income] = []
         var liabilities: [Liability] = []
         
-        var currentWalletValue: String = "" //{ String(self.wallet?.amount ?? 0) }
+        
+        var currentWalletValue: String = ""
         var currentAmountValue: String = ""
         var tabSelected: Tab = .incomes
         var isPresentingAddItemView: Bool = false
@@ -36,7 +37,11 @@ struct ConfigWallet: ReducerProtocol {
         case onAppear
         case walletUpdated(String)
         case amountUpdated(String)
-//        case newWalletAmount(value: Float)
+//        case newWalletAmount(value: Double)
+        
+        case walletResponse(Wallet)
+        case incomesResponse([Income])
+        case liabilitiesResponse([Liability])
         case tabSelected(State.Tab)
         case didTapToShowAddItemView
         case didTapToAddItem
@@ -48,23 +53,22 @@ struct ConfigWallet: ReducerProtocol {
     @Dependency(\.continuousClock) var clock
     @Dependency(\.coredata) var coredata
     
+    struct ConfigWalletCancelId: Hashable {}
+        
     var body: some ReducerProtocol<State, Action> {
       Reduce { state, action in
           switch action {
           case .onAppear:
-//              state.wallet = coredata.fetchWallet()
-//              state.incomes = coredata.fetchIncomes()
-//              state.liabilities = coredata.fetchLiabilities()
               guard let value = state.wallet?.amount else { return .none }
               state.currentWalletValue = String(value)
               return .none
               
           case .walletUpdated(let text):
               state.currentWalletValue = text
-              guard let value = Float(text) else { return .none }
-              coredata.createNewWalletActivity(amount: value)
-//              state.wallet = coredata.fetchWallet()
-              return .none
+              guard let value = Double(text) else { return .none }
+              return coredata.addWallet(value)
+                  .map(ConfigWallet.Action.walletResponse)
+                  .cancellable(id: ConfigWalletCancelId())
               
           case .amountUpdated(let text):
               state.currentAmountValue = text
@@ -83,35 +87,48 @@ struct ConfigWallet: ReducerProtocol {
               return .none
               
           case .didTapToAddItem:
-              guard let amount = Float(state.currentAmountValue) else { return .none }
+              guard let amount = Double(state.currentAmountValue) else { return .none }
               switch state.tabSelected {
               case .incomes:
-                  coredata.createNewIncome(amount: amount)
-//                  state.incomes = coredata.fetchIncomes()
+                  return coredata.addIncome(amount)
+                      .map(ConfigWallet.Action.incomesResponse)
+                      .cancellable(id: ConfigWalletCancelId())
+                  
               case .liabilities:
-                  coredata.createNewLiability(amount: amount)
-//                  state.liabilities = coredata.fetchLiabilities()
+                  return coredata.addLiability(amount)
+                      .map(ConfigWallet.Action.liabilitiesResponse)
+                      .cancellable(id: ConfigWalletCancelId())
               }
-              return EffectTask.send(.didDismissAddItemView(false))
-              
               
           case .didSwipeToRemoveIncome(let offsets):
-              offsets.forEach { index in
-                  let income = state.incomes[index]
-                  coredata.removeIncome(income)
-              }
+//              offsets.forEach { index in
+//                  let income = state.incomes[index]
+////                  coredata.removeIncome(income).sink(receiveValue: { income in
+////                      state.incomes = income
+////                  }).cancel()
+//              }
 //              state.incomes = coredata.fetchIncomes()
               return .none
           case .didSwipeToRemoveLiability(let offsets):
-              offsets.forEach { index in
-                  let liability = state.liabilities[index]
-                  coredata.removeLiablity(liability)
-              }
+//              offsets.forEach { index in
+//                  let liability = state.liabilities[index]
+//
+//                  return coredata.removeLiability(liability)
+//                      .map(ConfigWallet.Action.liabilitiesResponse)
+//                      .cancellable(id: ConfigWalletCancelId())
+//              }
 //              state.liabilities = coredata.fetchLiabilities()
               return .none
 
-//          default: return .none
+          case .walletResponse(let wallet):
+              state.wallet = wallet
+          case .incomesResponse(let incomes):
+              state.incomes = incomes
+          case .liabilitiesResponse(let liabilities):
+              state.liabilities = liabilities
           }
+          
+          return .none
       }
     }
 }

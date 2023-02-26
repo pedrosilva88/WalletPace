@@ -24,6 +24,8 @@ struct AppReducer: ReducerProtocol {
     
     @Dependency(\.coredata) var coredata
     
+    var cancellables: [AnyCancellable] = []
+    
     var body: some ReducerProtocol<State, Action> {
         Scope(state: \.home, action: /Action.home) {
             Home()
@@ -32,16 +34,21 @@ struct AppReducer: ReducerProtocol {
         Reduce { state, action in
             switch action {
             case .appDelegate(.didFinishLaunching):
+                coredata.wallet().sink(receiveValue: { wallet in
+                    print(wallet)
+                })
+                
                 return EffectTask.merge(
-                    coredata.walletTask()
+                    coredata.wallet()
                         .receive(on: DispatchQueue.main)
-                        .replaceError(with: nil)
+//                        .replaceError(with: nil)
                         .eraseToEffect()
                         .map({ wallet in
+                            print("Ole",wallet)
                             return Action.home(.walletResponse(wallet))
                         }),
                     
-                    coredata.incomesTask()
+                    coredata.incomes()
                         .receive(on: DispatchQueue.main)
                         .replaceError(with: [])
                         .eraseToEffect()
@@ -49,7 +56,7 @@ struct AppReducer: ReducerProtocol {
                             return Action.home(.incomesResponse(incomes))
                         }),
                     
-                    coredata.liabilitiesTask()
+                    coredata.liabilities()
                         .receive(on: DispatchQueue.main)
                         .replaceError(with: [])
                         .eraseToEffect()
