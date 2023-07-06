@@ -97,7 +97,7 @@ struct WalletPaceApp: App {
     
     var body: some Scene {
         WindowGroup {
-            HomeView(store: appDelegate.store.scope(state: \.home, action: AppReducer.Action.home))
+            HomeView(store: appDelegate.store.scope(state: \.home, action: AppReducer.Action.home)).tint(.black)
         }
     }
 }
