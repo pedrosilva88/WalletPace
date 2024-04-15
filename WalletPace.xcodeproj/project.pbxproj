@@ -23,10 +23,16 @@
 		40FD04D02997D8D500EE2132 /* WalletPaceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FD04CF2997D8D500EE2132 /* WalletPaceUITests.swift */; };
 		40FD04D22997D8D500EE2132 /* WalletPaceUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FD04D12997D8D500EE2132 /* WalletPaceUITestsLaunchTests.swift */; };
 		40FD04E02997D93C00EE2132 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 40FD04DF2997D93C00EE2132 /* ComposableArchitecture */; };
-		40FD04E42997D9AD00EE2132 /* WalletPace.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 40FD04E12997D9AD00EE2132 /* WalletPace.xcdatamodeld */; };
 		40FD04E52997D9AD00EE2132 /* WalletPaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FD04E32997D9AD00EE2132 /* WalletPaceApp.swift */; };
 		40FD04E82997DA0F00EE2132 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FD04E72997DA0F00EE2132 /* HomeView.swift */; };
 		40FD04EA2997DB5D00EE2132 /* HomeFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FD04E92997DB5D00EE2132 /* HomeFeature.swift */; };
+		80D45C992BCA763C00827195 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D45C932BCA763C00827195 /* Database.swift */; };
+		80D45C9A2BCA763C00827195 /* SchemaV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D45C942BCA763C00827195 /* SchemaV1.swift */; };
+		80D45C9E2BCA7BE600827195 /* WPDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D45C9D2BCA7BE600827195 /* WPDatabase.swift */; };
+		80D45CA12BCA97CD00827195 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D45CA02BCA97CD00827195 /* Wallet.swift */; };
+		80D45CA32BCA97FD00827195 /* Income.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D45CA22BCA97FD00827195 /* Income.swift */; };
+		80D45CA52BCA982100827195 /* Liability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D45CA42BCA982100827195 /* Liability.swift */; };
+		80D45CAC2BCBC05B00827195 /* WalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D45CAB2BCBC05B00827195 /* WalletManager.swift */; };
 		80DB9CA0299A8F0000A9999C /* CoreDataClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB9C9F299A8F0000A9999C /* CoreDataClient.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +77,13 @@
 		40FD04E32997D9AD00EE2132 /* WalletPaceApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletPaceApp.swift; sourceTree = "<group>"; };
 		40FD04E72997DA0F00EE2132 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		40FD04E92997DB5D00EE2132 /* HomeFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeature.swift; sourceTree = "<group>"; };
+		80D45C932BCA763C00827195 /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		80D45C942BCA763C00827195 /* SchemaV1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaV1.swift; sourceTree = "<group>"; };
+		80D45C9D2BCA7BE600827195 /* WPDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPDatabase.swift; sourceTree = "<group>"; };
+		80D45CA02BCA97CD00827195 /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
+		80D45CA22BCA97FD00827195 /* Income.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Income.swift; sourceTree = "<group>"; };
+		80D45CA42BCA982100827195 /* Liability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Liability.swift; sourceTree = "<group>"; };
+		80D45CAB2BCBC05B00827195 /* WalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletManager.swift; sourceTree = "<group>"; };
 		80DB9C9F299A8F0000A9999C /* CoreDataClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,20 +125,21 @@
 		4066E98329ABD4EA00323475 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				4066E98429ABD57800323475 /* Provider */,
-				80DB9C9C299A8C3A00A9999C /* CoreData */,
+				80D45C9C2BCA798000827195 /* Database */,
+				4066E98429ABD57800323475 /* _Provider */,
+				80DB9C9C299A8C3A00A9999C /* _CoreData */,
 			);
 			path = Data;
 			sourceTree = "<group>";
 		};
-		4066E98429ABD57800323475 /* Provider */ = {
+		4066E98429ABD57800323475 /* _Provider */ = {
 			isa = PBXGroup;
 			children = (
 				4066E98529ABD59400323475 /* Provider.swift */,
 				4066E98729ABD5CA00323475 /* ProviderError.swift */,
 				4066E98C29ABD79D00323475 /* Provider+Wallet.swift */,
 			);
-			path = Provider;
+			path = _Provider;
 			sourceTree = "<group>";
 		};
 		4066E98929ABD60000323475 /* Shared */ = {
@@ -159,10 +173,10 @@
 		40FD04AD2997D8D400EE2132 /* WalletPace */ = {
 			isa = PBXGroup;
 			children = (
+				80D45CAA2BCBC03E00827195 /* Managers */,
+				80D45CA92BCBC02A00827195 /* Views */,
 				4066E98929ABD60000323475 /* Shared */,
 				4066E98329ABD4EA00323475 /* Data */,
-				4053275C299EB9F6007A65B1 /* ConfigWallet */,
-				40FD04E62997D9F900EE2132 /* Home */,
 				40FD04B22997D8D500EE2132 /* Assets.xcassets */,
 				40FD04BC2997D8D500EE2132 /* Info.plist */,
 				40FD04B42997D8D500EE2132 /* Preview Content */,
@@ -207,7 +221,53 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		80DB9C9C299A8C3A00A9999C /* CoreData */ = {
+		80D45C982BCA763C00827195 /* Schema */ = {
+			isa = PBXGroup;
+			children = (
+				80D45C9F2BCA97BD00827195 /* Models */,
+				80D45C942BCA763C00827195 /* SchemaV1.swift */,
+			);
+			path = Schema;
+			sourceTree = "<group>";
+		};
+		80D45C9C2BCA798000827195 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				80D45C932BCA763C00827195 /* Database.swift */,
+				80D45C9D2BCA7BE600827195 /* WPDatabase.swift */,
+				80D45C982BCA763C00827195 /* Schema */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		80D45C9F2BCA97BD00827195 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				80D45CA02BCA97CD00827195 /* Wallet.swift */,
+				80D45CA22BCA97FD00827195 /* Income.swift */,
+				80D45CA42BCA982100827195 /* Liability.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		80D45CA92BCBC02A00827195 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4053275C299EB9F6007A65B1 /* ConfigWallet */,
+				40FD04E62997D9F900EE2132 /* Home */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		80D45CAA2BCBC03E00827195 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				80D45CAB2BCBC05B00827195 /* WalletManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		80DB9C9C299A8C3A00A9999C /* _CoreData */ = {
 			isa = PBXGroup;
 			children = (
 				40FD04B72997D8D500EE2132 /* PersistentContainer.swift */,
@@ -215,7 +275,7 @@
 				4094E16729A3E70800EC6F65 /* CoreDataTestKey.swift */,
 				4094E16929A3EDEF00EC6F65 /* CoreDataLiveKey.swift */,
 			);
-			path = CoreData;
+			path = _CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -354,20 +414,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80D45CAC2BCBC05B00827195 /* WalletManager.swift in Sources */,
 				4066E98829ABD5CA00323475 /* ProviderError.swift in Sources */,
 				4094E16829A3E70800EC6F65 /* CoreDataTestKey.swift in Sources */,
 				40FD04B82997D8D500EE2132 /* PersistentContainer.swift in Sources */,
 				80DB9CA0299A8F0000A9999C /* CoreDataClient.swift in Sources */,
 				40FD04E52997D9AD00EE2132 /* WalletPaceApp.swift in Sources */,
+				80D45CA52BCA982100827195 /* Liability.swift in Sources */,
+				80D45C9E2BCA7BE600827195 /* WPDatabase.swift in Sources */,
+				80D45CA12BCA97CD00827195 /* Wallet.swift in Sources */,
 				4066E98629ABD59400323475 /* Provider.swift in Sources */,
 				4066E98D29ABD79D00323475 /* Provider+Wallet.swift in Sources */,
 				4053275E299EBA13007A65B1 /* ConfigWalletView.swift in Sources */,
 				40FD04E82997DA0F00EE2132 /* HomeView.swift in Sources */,
+				80D45CA32BCA97FD00827195 /* Income.swift in Sources */,
 				40FD04EA2997DB5D00EE2132 /* HomeFeature.swift in Sources */,
 				4094E16A29A3EDEF00EC6F65 /* CoreDataLiveKey.swift in Sources */,
-				40FD04E42997D9AD00EE2132 /* WalletPace.xcdatamodeld in Sources */,
+				80D45C9A2BCA763C00827195 /* SchemaV1.swift in Sources */,
 				4094E16629A3E31A00EC6F65 /* AppDelegate.swift in Sources */,
 				40532760299EBA42007A65B1 /* ConfigWallet.swift in Sources */,
+				80D45C992BCA763C00827195 /* Database.swift in Sources */,
 				4066E98B29ABD61A00323475 /* Error+Equality.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -535,6 +601,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -564,6 +631,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -586,7 +654,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CYV3S7S3X5;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.turtleargument.walletpace.Wallet-PaceTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -606,7 +674,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CYV3S7S3X5;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.turtleargument.walletpace.Wallet-PaceTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";

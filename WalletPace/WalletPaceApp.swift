@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 import Combine
 import ComposableArchitecture
 
@@ -22,7 +23,7 @@ struct AppReducer: ReducerProtocol {
         case home(Home.Action)
     }
     
-    @Dependency(\.coredata) var coredata
+//    @Dependency(\.swiftData) var swiftData
     
     var cancellables: [AnyCancellable] = []
     
@@ -34,36 +35,37 @@ struct AppReducer: ReducerProtocol {
         Reduce { state, action in
             switch action {
             case .appDelegate(.didFinishLaunching):
-                coredata.wallet().sink(receiveValue: { wallet in
-                    print(wallet)
-                })
+//                coredata.wallet().sink(receiveValue: { wallet in
+//                    print(wallet)
+//                })
                 
-                return EffectTask.merge(
-                    coredata.wallet()
-                        .receive(on: DispatchQueue.main)
-//                        .replaceError(with: nil)
-                        .eraseToEffect()
-                        .map({ wallet in
-                            print("Ole",wallet)
-                            return Action.home(.walletResponse(wallet))
-                        }),
-                    
-                    coredata.incomes()
-                        .receive(on: DispatchQueue.main)
-                        .replaceError(with: [])
-                        .eraseToEffect()
-                        .map({ incomes in
-                            return Action.home(.incomesResponse(incomes))
-                        }),
-                    
-                    coredata.liabilities()
-                        .receive(on: DispatchQueue.main)
-                        .replaceError(with: [])
-                        .eraseToEffect()
-                        .map({ liabilities in
-                            return Action.home(.liabilitiesResponse(liabilities))
-                        })
-                )
+                return .none
+//                EffectTask.merge(
+//                    coredata.wallet()
+//                        .receive(on: DispatchQueue.main)
+////                        .replaceError(with: nil)
+//                        .eraseToEffect()
+//                        .map({ wallet in
+//                            print("Ole",wallet)
+//                            return Action.home(.walletResponse(wallet))
+//                        }),
+//                    
+//                    coredata.incomes()
+//                        .receive(on: DispatchQueue.main)
+//                        .replaceError(with: [])
+//                        .eraseToEffect()
+//                        .map({ incomes in
+//                            return Action.home(.incomesResponse(incomes))
+//                        }),
+//                    
+//                    coredata.liabilities()
+//                        .receive(on: DispatchQueue.main)
+//                        .replaceError(with: [])
+//                        .eraseToEffect()
+//                        .map({ liabilities in
+//                            return Action.home(.liabilitiesResponse(liabilities))
+//                        })
+//                )
             default: return .none
             }
             
@@ -74,7 +76,7 @@ struct AppReducer: ReducerProtocol {
 final class AppDelegate: NSObject, UIApplicationDelegate {
     let store = Store(
         initialState: AppReducer.State(),
-        reducer: AppReducer().dependency(\.coredata, .live)
+        reducer: AppReducer()
     )
     
     var viewStore: ViewStore<Void, AppReducer.Action> {
@@ -92,12 +94,15 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct WalletPaceApp: App {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+//    @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     init() {}
     
     var body: some Scene {
         WindowGroup {
-            HomeView(store: appDelegate.store.scope(state: \.home, action: AppReducer.Action.home)).tint(.black)
+            HomeView(store: Store(initialState: Home.State(), reducer: Home()))
+        
+            
+//            HomeView(store: appDelegate.store.scope(state: \.home, action: AppReducer.Action.home)).tint(.black)
         }
     }
 }

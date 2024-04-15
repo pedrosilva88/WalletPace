@@ -14,9 +14,9 @@ struct HomeView: View {
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             NavigationView {
-                ScrollView {
+//                ScrollView {
                     VStack {
-                        Spacer()
+                        
                         Text("Your Balance").frame(alignment: .leading)
                         Text("\(viewStore.amount, specifier: "%.4f")")
                             .font(.title)
@@ -26,36 +26,36 @@ struct HomeView: View {
                         
                     }
                     
-                    .frame(height: 0)
-                    .cornerRadius(20)
-                    .background(
-                        LinearGradient(gradient: Gradient(colors: [.init(hex: "266A61"), .init(hex: "266A61").opacity(0.48)]), startPoint: .leading, endPoint: .trailing)
-                    )
+//                    .frame(height: 0)
+//                    .cornerRadius(20)
+//                    .background(
+//                        LinearGradient(gradient: Gradient(colors: [.init(hex: "266A61"), .init(hex: "266A61").opacity(0.48)]), startPoint: .leading, endPoint: .trailing)
+//                    )
                     
-                    Box()
-                    Box()
-                    Spacer()
-                }
+//                    Box()
+//                    Box()
+//                    Spacer()
+//                }
                 .navigationBarTitle("Wallet Pace")
-                .ignoresSafeArea()
+//                .ignoresSafeArea()
 //                .background(
 //                    LinearGradient(gradient: Gradient(colors: [.init(hex: "266A61"), .init(hex: "266A61").opacity(0.48)]), startPoint: .leading, endPoint: .trailing)
 //                )
 //                .background(
 //                    LinearGradient(gradient: Gradient(colors: [.init(hex: "266A61"), .init(hex: "266A61").opacity(0.48)]), startPoint: .leading, endPoint: .trailing))
-//                .navigationBarItems(trailing: Button { viewStore.send(.configWalletPresented(isPresented: true)) } label: {
-//                    Image(systemName: "gear")
-//                }
-//                )
+                .navigationBarItems(trailing: Button { viewStore.send(.configWalletPresented(isPresented: true)) } label: {
+                    Image(systemName: "gear")
+                }
+                )
             }
             
             .sheet(isPresented: viewStore.binding(
                 get: { $0.isConfigBeingPresented },
                 send: { .configWalletPresented(isPresented: $0) }
-            )) { ConfigaWalletView.init(store: store.scope(state: \.configWallet, action: Home.Action.configWallet)) }
-                .task {
-                    await viewStore.send(.task).finish()
-                }
+            )) { ConfigaWalletView.init(store: store.scope(state: \.configWallet, action: Home.Action.configWallet))
+            }.task {
+                await viewStore.send(.task).finish()
+            }
         }
     }
 }
@@ -127,7 +127,9 @@ struct Box: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView(
-            store: Store(initialState: Home.State(), reducer: Home().dependency(\.coredata, .previewValue))
+            store: Store(initialState: Home.State(), 
+                         reducer: Home()
+                .dependency(\.walletManager, .liveValue))
         )
     }
 }

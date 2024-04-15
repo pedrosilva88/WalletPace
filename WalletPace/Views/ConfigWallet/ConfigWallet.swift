@@ -40,6 +40,7 @@ struct ConfigWallet: ReducerProtocol {
 //        case newWalletAmount(value: Double)
         
         case walletResponse(Wallet)
+        case randomResponse(Bool)
         case incomesResponse([Income])
         case liabilitiesResponse([Liability])
         case tabSelected(State.Tab)
@@ -51,8 +52,8 @@ struct ConfigWallet: ReducerProtocol {
     }
     
     @Dependency(\.continuousClock) var clock
-    @Dependency(\.coredata) var coredata
-    
+    @Dependency(\.walletManager) var walletManager
+
     struct ConfigWalletCancelId: Hashable {}
         
     var body: some ReducerProtocol<State, Action> {
@@ -66,9 +67,9 @@ struct ConfigWallet: ReducerProtocol {
           case .walletUpdated(let text):
               state.currentWalletValue = text
               guard let value = Double(text) else { return .none }
-              return coredata.addWallet(value)
-                  .map(ConfigWallet.Action.walletResponse)
-                  .cancellable(id: ConfigWalletCancelId())
+//              walletManager.addWallet(value)
+//                  .map(ConfigWallet.Action.walletResponse)
+//                  .cancellable(id: ConfigWalletCancelId())
               
           case .amountUpdated(let text):
               state.currentAmountValue = text
@@ -90,16 +91,18 @@ struct ConfigWallet: ReducerProtocol {
               guard let amount = Double(state.currentAmountValue) else { return .none }
               switch state.tabSelected {
               case .incomes:
-                  return coredata.addIncome(amount)
-                      .map(ConfigWallet.Action.incomesResponse)
+                  
+                walletManager.addIncome(amount)
+                      .map(ConfigWallet.Action.randomResponse)
                       .cancellable(id: ConfigWalletCancelId())
                   
               case .liabilities:
-                  return coredata.addLiability(amount)
-                      .map(ConfigWallet.Action.liabilitiesResponse)
+                  return walletManager.addLiability(amount)
+                      .map(ConfigWallet.Action.randomResponse)
                       .cancellable(id: ConfigWalletCancelId())
               }
-              
+          case .randomResponse(_):
+              return .none
           case .didSwipeToRemoveIncome(let offsets):
 //              offsets.forEach { index in
 //                  let income = state.incomes[index]

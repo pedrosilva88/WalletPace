@@ -115,7 +115,7 @@ struct ConfigaWalletView_Previews: PreviewProvider {
                                                                         Liability(amount: 4000, date: .now),
                                                                         Liability(amount: 4000, date: .now),
                                                                         Liability(amount: 4000, date: .now)]),
-                         reducer: ConfigWallet().dependency(\.coredata, .previewValue))
+                         reducer: ConfigWallet().dependency(\.swiftData, .previewValue))
         )
     }
 }

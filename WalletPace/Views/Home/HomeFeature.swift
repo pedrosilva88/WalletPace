@@ -47,7 +47,7 @@ struct Home: ReducerProtocol {
     }
     
     @Dependency(\.continuousClock) var clock
-    @Dependency(\.coredata) var coredata
+    @Dependency(\.walletManager) var walletManager
     struct HomeCancelId: Hashable {}
 
     
@@ -63,26 +63,26 @@ struct Home: ReducerProtocol {
                     .run { send in
                         for await _ in clock.timer(interval: .seconds(1)) {
                             await send(.updateWalletAmount)
-                        }},
+                        }}
+//                    ,
                     
-                    coredata.wallet()
-                        .map(Home.Action.walletResponse)
-                        .cancellable(id: HomeCancelId()),
-                    
-                    coredata.incomes()
-                        .map(Home.Action.incomesResponse)
-                        .cancellable(id: HomeCancelId()),
-
-                    coredata.liabilities()
-                        .map(Home.Action.liabilitiesResponse)
-                        .cancellable(id: HomeCancelId())
+//                    coredata.wallet()
+//                        .map(Home.Action.walletResponse)
+//                        .cancellable(id: HomeCancelId()),
+//                    
+//                    coredata.incomes()
+//                        .map(Home.Action.incomesResponse)
+//                        .cancellable(id: HomeCancelId()),
+//
+//                    coredata.liabilities()
+//                        .map(Home.Action.liabilitiesResponse)
+//                        .cancellable(id: HomeCancelId())
                     )
 
             case .updateWalletAmount:
                 guard !state.isConfigBeingPresented else { return .none }
-                let value = state.amount + state.incrementPace
-                print(value, state.amount + state.incrementPace, state.amount, state.incrementPace)
-                return coredata.addWallet(value)
+
+                return walletManager.syncWallet()
                     .map(Home.Action.walletResponse)
                     .cancellable(id: HomeCancelId())
                 
