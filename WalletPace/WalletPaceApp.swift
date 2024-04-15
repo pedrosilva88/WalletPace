@@ -10,7 +10,10 @@ import SwiftData
 import Combine
 import ComposableArchitecture
 
-struct AppReducer: ReducerProtocol {
+@Reducer
+struct AppReducer {
+    
+    @ObservableState
     struct State: Equatable {
         var home: Home.State
         
@@ -27,7 +30,7 @@ struct AppReducer: ReducerProtocol {
     
     var cancellables: [AnyCancellable] = []
     
-    var body: some ReducerProtocol<State, Action> {
+    var body: some Reducer<State, Action> {
         Scope(state: \.home, action: /Action.home) {
             Home()
         }
@@ -76,11 +79,11 @@ struct AppReducer: ReducerProtocol {
 final class AppDelegate: NSObject, UIApplicationDelegate {
     let store = Store(
         initialState: AppReducer.State(),
-        reducer: AppReducer()
+        reducer: { AppReducer() }
     )
     
     var viewStore: ViewStore<Void, AppReducer.Action> {
-        ViewStore(self.store.stateless)
+        ViewStore(store, observe: {state in }, removeDuplicates: {lhs,rhs in return true})
     }
     
     func application(
@@ -99,7 +102,12 @@ struct WalletPaceApp: App {
     
     var body: some Scene {
         WindowGroup {
-            HomeView(store: Store(initialState: Home.State(), reducer: Home()))
+
+            
+            HomeView(store: Store(initialState: Home.State(), reducer: { Home().body }, withDependencies: {
+                $0.swiftData = .previewValue
+                $0.walletManager = .previewValue
+            }))
         
             
 //            HomeView(store: appDelegate.store.scope(state: \.home, action: AppReducer.Action.home)).tint(.black)

@@ -109,13 +109,10 @@ struct DoubleingButton: View {
 struct ConfigaWalletView_Previews: PreviewProvider {
     static var previews: some View {
         ConfigaWalletView(
-            store: Store(initialState: ConfigWallet.State(incomes: [Income(amount: 10000, date: .now)],
-                                                          liabilities: [Liability(amount: 4000, date: .now),
-                                                                        Liability(amount: 4000, date: .now),
-                                                                        Liability(amount: 4000, date: .now),
-                                                                        Liability(amount: 4000, date: .now),
-                                                                        Liability(amount: 4000, date: .now)]),
-                         reducer: ConfigWallet().dependency(\.swiftData, .previewValue))
-        )
+            store: Store(initialState: ConfigWallet.State(),
+                         reducer: { ConfigWallet() }, withDependencies: {
+                             $0.swiftData = .previewValue
+                             $0.walletManager = .previewValue
+                         }))
     }
 }

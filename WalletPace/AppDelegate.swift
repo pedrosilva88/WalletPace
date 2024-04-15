@@ -7,16 +7,22 @@
 
 import ComposableArchitecture
 
-public struct AppDelegateReducer: ReducerProtocol {
-    public struct State: Equatable { }
+@Reducer
+struct AppDelegateReducer {
+    @ObservableState
+    struct State: Equatable { }
     
-    public enum Action: Equatable {
+    enum Action: Equatable {
         case didFinishLaunching
     }
     
-    
-    public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
-        return .none
+    var body: some Reducer<State, Action> {
+        Reduce { state, action in
+            switch action {
+            case .didFinishLaunching:
+                return .none
+            }
+        }
     }
 }
 

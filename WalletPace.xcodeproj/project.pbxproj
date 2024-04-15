@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4037D63D2BCD61BA003299CB /* WalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4037D63C2BCD61BA003299CB /* WalletViewModel.swift */; };
 		4053275E299EBA13007A65B1 /* ConfigWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4053275D299EBA13007A65B1 /* ConfigWalletView.swift */; };
 		40532760299EBA42007A65B1 /* ConfigWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4053275F299EBA42007A65B1 /* ConfigWallet.swift */; };
 		4066E98629ABD59400323475 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066E98529ABD59400323475 /* Provider.swift */; };
@@ -54,6 +55,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4037D63C2BCD61BA003299CB /* WalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewModel.swift; sourceTree = "<group>"; };
 		4053275D299EBA13007A65B1 /* ConfigWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigWalletView.swift; sourceTree = "<group>"; };
 		4053275F299EBA42007A65B1 /* ConfigWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigWallet.swift; sourceTree = "<group>"; };
 		4066E98529ABD59400323475 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
@@ -113,6 +115,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		40334E8F2BCD616A0025976D /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				4037D63C2BCD61BA003299CB /* WalletViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		4053275C299EB9F6007A65B1 /* ConfigWallet */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,6 +225,7 @@
 		40FD04E62997D9F900EE2132 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				40334E8F2BCD616A0025976D /* ViewModels */,
 				40FD04E72997DA0F00EE2132 /* HomeView.swift */,
 				40FD04E92997DB5D00EE2132 /* HomeFeature.swift */,
 			);
@@ -431,6 +442,7 @@
 				40FD04EA2997DB5D00EE2132 /* HomeFeature.swift in Sources */,
 				4094E16A29A3EDEF00EC6F65 /* CoreDataLiveKey.swift in Sources */,
 				80D45C9A2BCA763C00827195 /* SchemaV1.swift in Sources */,
+				4037D63D2BCD61BA003299CB /* WalletViewModel.swift in Sources */,
 				4094E16629A3E31A00EC6F65 /* AppDelegate.swift in Sources */,
 				40532760299EBA42007A65B1 /* ConfigWallet.swift in Sources */,
 				80D45C992BCA763C00827195 /* Database.swift in Sources */,
@@ -768,7 +780,7 @@
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.50.2;
+				minimumVersion = 1.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

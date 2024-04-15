@@ -5,10 +5,12 @@
 //  Created by Pedro Silva on 16/02/2023.
 //
 
-import ComposableArchitecture
 import Foundation
+import ComposableArchitecture
 
-struct ConfigWallet: ReducerProtocol {
+@Reducer
+struct ConfigWallet {
+    @ObservableState
     struct State: Equatable {
         var wallet: Wallet?
         var incomes: [Income] = []
@@ -32,12 +34,12 @@ struct ConfigWallet: ReducerProtocol {
             }
         }
     }
-
+    
     enum Action: Equatable {
         case onAppear
         case walletUpdated(String)
         case amountUpdated(String)
-//        case newWalletAmount(value: Double)
+        //        case newWalletAmount(value: Double)
         
         case walletResponse(Wallet)
         case randomResponse(Bool)
@@ -53,86 +55,86 @@ struct ConfigWallet: ReducerProtocol {
     
     @Dependency(\.continuousClock) var clock
     @Dependency(\.walletManager) var walletManager
-
+    
     struct ConfigWalletCancelId: Hashable {}
-        
-    var body: some ReducerProtocol<State, Action> {
-      Reduce { state, action in
-          switch action {
-          case .onAppear:
-              guard let value = state.wallet?.amount else { return .none }
-              state.currentWalletValue = String(value)
-              return .none
-              
-          case .walletUpdated(let text):
-              state.currentWalletValue = text
-              guard let value = Double(text) else { return .none }
-//              walletManager.addWallet(value)
-//                  .map(ConfigWallet.Action.walletResponse)
-//                  .cancellable(id: ConfigWalletCancelId())
-              
-          case .amountUpdated(let text):
-              state.currentAmountValue = text
-              return .none
-              
-          case .tabSelected(let tab):
-              state.tabSelected = tab
-              return .none
-              
-          case .didTapToShowAddItemView:
-              state.isPresentingAddItemView = true
-              return .none
-
-          case .didDismissAddItemView(let isPresented):
-              state.isPresentingAddItemView = isPresented
-              return .none
-              
-          case .didTapToAddItem:
-              guard let amount = Double(state.currentAmountValue) else { return .none }
-              switch state.tabSelected {
-              case .incomes:
-                  
-                walletManager.addIncome(amount)
-                      .map(ConfigWallet.Action.randomResponse)
-                      .cancellable(id: ConfigWalletCancelId())
-                  
-              case .liabilities:
-                  return walletManager.addLiability(amount)
-                      .map(ConfigWallet.Action.randomResponse)
-                      .cancellable(id: ConfigWalletCancelId())
-              }
-          case .randomResponse(_):
-              return .none
-          case .didSwipeToRemoveIncome(let offsets):
-//              offsets.forEach { index in
-//                  let income = state.incomes[index]
-////                  coredata.removeIncome(income).sink(receiveValue: { income in
-////                      state.incomes = income
-////                  }).cancel()
-//              }
-//              state.incomes = coredata.fetchIncomes()
-              return .none
-          case .didSwipeToRemoveLiability(let offsets):
-//              offsets.forEach { index in
-//                  let liability = state.liabilities[index]
-//
-//                  return coredata.removeLiability(liability)
-//                      .map(ConfigWallet.Action.liabilitiesResponse)
-//                      .cancellable(id: ConfigWalletCancelId())
-//              }
-//              state.liabilities = coredata.fetchLiabilities()
-              return .none
-
-          case .walletResponse(let wallet):
-              state.wallet = wallet
-          case .incomesResponse(let incomes):
-              state.incomes = incomes
-          case .liabilitiesResponse(let liabilities):
-              state.liabilities = liabilities
-          }
-          
-          return .none
-      }
+    
+    var body: some Reducer<State, Action> {
+        Reduce { state, action in
+            switch action {
+            case .onAppear:
+                guard let value = state.wallet?.amount else { return .none }
+                state.currentWalletValue = String(value)
+                return .none
+                
+            case .walletUpdated(let text):
+                state.currentWalletValue = text
+                guard let value = Double(text) else { return .none }
+                //              walletManager.addWallet(value)
+                //                  .map(ConfigWallet.Action.walletResponse)
+                //                  .cancellable(id: ConfigWalletCancelId())
+                
+            case .amountUpdated(let text):
+                state.currentAmountValue = text
+                return .none
+                
+            case .tabSelected(let tab):
+                state.tabSelected = tab
+                return .none
+                
+            case .didTapToShowAddItemView:
+                state.isPresentingAddItemView = true
+                return .none
+                
+            case .didDismissAddItemView(let isPresented):
+                state.isPresentingAddItemView = isPresented
+                return .none
+                
+            case .didTapToAddItem:
+                guard let amount = Double(state.currentAmountValue) else { return .none }
+                switch state.tabSelected {
+                case .incomes:
+                    
+                    walletManager.addIncome(amount)
+                        .map(ConfigWallet.Action.randomResponse)
+                        .cancellable(id: ConfigWalletCancelId())
+                    
+                case .liabilities:
+                    return walletManager.addLiability(amount)
+                        .map(ConfigWallet.Action.randomResponse)
+                        .cancellable(id: ConfigWalletCancelId())
+                }
+            case .randomResponse(_):
+                return .none
+            case .didSwipeToRemoveIncome(let offsets):
+                //              offsets.forEach { index in
+                //                  let income = state.incomes[index]
+                ////                  coredata.removeIncome(income).sink(receiveValue: { income in
+                ////                      state.incomes = income
+                ////                  }).cancel()
+                //              }
+                //              state.incomes = coredata.fetchIncomes()
+                return .none
+            case .didSwipeToRemoveLiability(let offsets):
+                //              offsets.forEach { index in
+                //                  let liability = state.liabilities[index]
+                //
+                //                  return coredata.removeLiability(liability)
+                //                      .map(ConfigWallet.Action.liabilitiesResponse)
+                //                      .cancellable(id: ConfigWalletCancelId())
+                //              }
+                //              state.liabilities = coredata.fetchLiabilities()
+                return .none
+                
+            case .walletResponse(let wallet):
+                state.wallet = wallet
+            case .incomesResponse(let incomes):
+                state.incomes = incomes
+            case .liabilitiesResponse(let liabilities):
+                state.liabilities = liabilities
+            }
+            
+            return .none
+        }
     }
 }
 

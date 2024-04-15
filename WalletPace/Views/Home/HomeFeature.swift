@@ -1,31 +1,34 @@
 import ComposableArchitecture
 
-struct Home: ReducerProtocol {
+@Reducer
+struct Home {
+    
+    @ObservableState
     struct State: Equatable {
-        var wallet: Wallet?
-        var liabilities: [Liability] = []
-        var incomes: [Income] = []
+        var wallet: WalletViewModel?
+//        var liabilities: [Liability] = []
+//        var incomes: [Income] = []
         
         var amount: Double { wallet?.amount ?? 0 }
         
-        var walletInAWeek: Double { amount + (incrementPace*60*60*24*7) }
-        var walletInAMonth: Double { amount + (incrementPace*60*60*24*30) }
-        var walletInAYear: Double { amount + (incrementPace*60*60*24*365) }
-        var walletOnYearEnd: Double { 0 }
+//        var walletInAWeek: Double { amount + (incrementPace*60*60*24*7) }
+//        var walletInAMonth: Double { amount + (incrementPace*60*60*24*30) }
+//        var walletInAYear: Double { amount + (incrementPace*60*60*24*365) }
+//        var walletOnYearEnd: Double { 0 }
+//        
+//        var incrementInASecond: Double { incrementPace }
+//        var incrementInAMinute: Double { incrementPace*60 }
+//        var incrementInAHour: Double { incrementPace*60*60 }
+//        var incrementInADay: Double { incrementPace*60*60*24 }
+//        var incrementInAMonth: Double { incrementPace*60*60*24*30 }
+//        var incrementInAYear: Double { incrementPace*60*60*24*30*12 }
         
-        var incrementInASecond: Double { incrementPace }
-        var incrementInAMinute: Double { incrementPace*60 }
-        var incrementInAHour: Double { incrementPace*60*60 }
-        var incrementInADay: Double { incrementPace*60*60*24 }
-        var incrementInAMonth: Double { incrementPace*60*60*24*30 }
-        var incrementInAYear: Double { incrementPace*60*60*24*30*12 }
-        
-        var incrementPace: Double {
-            let sumIncome = incomes.reduce(0, { return $0 + $1.amount })
-            let sumLiability = liabilities.reduce(0, { return $0 + $1.amount })
-            // its being measured by month
-            return ((sumIncome*12/365/24/60/60) - (sumLiability*12/365/24/60/60))
-        }
+//        var incrementPace: Double {
+//            let sumIncome = incomes.reduce(0, { return $0 + $1.amount })
+//            let sumLiability = liabilities.reduce(0, { return $0 + $1.amount })
+//            // its being measured by month
+//            return ((sumIncome*12/365/24/60/60) - (sumLiability*12/365/24/60/60))
+//        }
         
         var isConfigBeingPresented: Bool = false {
             didSet {
@@ -33,7 +36,7 @@ struct Home: ReducerProtocol {
             }
         }
         
-        private var _configWalletState = ConfigWallet.State()
+        var configWallet = ConfigWallet.State()
     }
 
     enum Action: Equatable {
@@ -42,8 +45,8 @@ struct Home: ReducerProtocol {
         case configWalletPresented(isPresented: Bool)
         case configWallet(ConfigWallet.Action)
         case walletResponse(Wallet?)
-        case incomesResponse([Income])
-        case liabilitiesResponse([Liability])
+//        case incomesResponse([Income])
+//        case liabilitiesResponse([Liability])
     }
     
     @Dependency(\.continuousClock) var clock
@@ -51,10 +54,10 @@ struct Home: ReducerProtocol {
     struct HomeCancelId: Hashable {}
 
     
-    var body: some ReducerProtocol<State, Action> {
-        Scope(state: \.configWallet, action: /Action.configWallet) {
-            ConfigWallet()
-        }
+    var body: some Reducer<State, Action> {
+//        Scope(state: \.configWallet, action: /Action.configWallet) {
+//            ConfigWallet()
+//        }
         
         Reduce { state, action in
             switch action {
@@ -94,37 +97,37 @@ struct Home: ReducerProtocol {
                 return .none
                 
             case .walletResponse(let wallet):
-                state.wallet = wallet
+                state.wallet = WalletViewModel(amount: wallet?.amount ?? 0)
                 return .none
                 
-            case .incomesResponse(let incomes):
-                state.incomes = incomes
-                return .none
-                
-            case .liabilitiesResponse(let liabilities):
-                state.liabilities = liabilities
-                return .none
+//            case .incomesResponse(let incomes):
+////                state.incomes = incomes
+//                return .none
+//                
+//            case .liabilitiesResponse(let liabilities):
+////                state.liabilities = liabilities
+//                return .none
             }
         }
     }
 }
 
-extension Home.State {
-    var configWallet: ConfigWallet.State {
-        get {
-            ConfigWallet.State(wallet: self.wallet,
-                               incomes: self.incomes,
-                               liabilities: self.liabilities,
-                               currentWalletValue: _configWalletState.currentWalletValue,
-                               currentAmountValue: _configWalletState.currentAmountValue,
-                               tabSelected: _configWalletState.tabSelected,
-                               isPresentingAddItemView: _configWalletState.isPresentingAddItemView)
-        }
-        set {
-            self.wallet = newValue.wallet
-            self.incomes = newValue.incomes
-            self.liabilities = newValue.liabilities
-            _configWalletState = newValue
-        }
-    }
-}
+//extension Home.State {
+//    var configWallet: ConfigWallet.State {
+//        get {
+//            ConfigWallet.State(wallet: self.wallet,
+//                               incomes: self.incomes,
+//                               liabilities: self.liabilities,
+//                               currentWalletValue: _configWalletState.currentWalletValue,
+//                               currentAmountValue: _configWalletState.currentAmountValue,
+//                               tabSelected: _configWalletState.tabSelected,
+//                               isPresentingAddItemView: _configWalletState.isPresentingAddItemView)
+//        }
+//        set {
+//            self.wallet = newValue.wallet
+//            self.incomes = newValue.incomes
+//            self.liabilities = newValue.liabilities
+//            _configWalletState = newValue
+//        }
+//    }
+//}

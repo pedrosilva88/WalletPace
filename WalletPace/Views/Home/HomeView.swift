@@ -52,7 +52,8 @@ struct HomeView: View {
             .sheet(isPresented: viewStore.binding(
                 get: { $0.isConfigBeingPresented },
                 send: { .configWalletPresented(isPresented: $0) }
-            )) { ConfigaWalletView.init(store: store.scope(state: \.configWallet, action: Home.Action.configWallet))
+            )) {
+                ConfigaWalletView.init(store: store.scope(state: \.configWallet, action: Home.Action.configWallet))
             }.task {
                 await viewStore.send(.task).finish()
             }
@@ -126,11 +127,12 @@ struct Box: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(
-            store: Store(initialState: Home.State(), 
-                         reducer: Home()
-                .dependency(\.walletManager, .liveValue))
-        )
+        HomeView(store: Store(initialState: Home.State(), 
+                              reducer: { Home().body },
+                              withDependencies: {
+            $0.swiftData = .previewValue
+            $0.walletManager = .previewValue
+        }))
     }
 }
 

@@ -14,45 +14,44 @@ import SwiftData
 extension DependencyValues {
     var walletManager: WalletManager {
         get { self[WalletManager.self] }
-        set { 
-            print(newValue)
-            self[WalletManager.self] = newValue }
+        set { self[WalletManager.self] = newValue }
     }
 }
 
 protocol WalletManagerProtocol {
-    func syncWallet() -> EffectTask<Wallet>
-    func incomes() -> EffectTask<[Income]>
-    func liabilities() -> EffectTask<[Liability]>
-    func addIncome(_ amount: Double) -> EffectTask<Bool>
-    func addLiability(_ amount: Double) -> EffectTask<Bool>
+    func syncWallet() -> Effect<Wallet>
+    func incomes() -> Effect<[Income]>
+    func liabilities() -> Effect<[Liability]>
+    func addIncome(_ amount: Double) -> Effect<Bool>
+    func addLiability(_ amount: Double) -> Effect<Bool>
 }
 
 struct WalletManager: WalletManagerProtocol {
     @Dependency(\.swiftData) var swiftData
     
-    func syncWallet() -> EffectTask<Wallet> {
+    func syncWallet() -> Effect<Wallet> {
         let currentWallet: Wallet
-
-        if let wallet = lastWallet {
-            currentWallet = wallet
-        } else {
-            let newWallet = Wallet(amount: 0.0, dateCreated: .now)
-            guard addWallet(newWallet) else { return .none}
-            currentWallet = newWallet
-        }
-        
-        let currentDate: Date = .now
-        let difference = round(currentDate.timeIntervalSince(currentWallet.dateCreated))
-        
-        let newValue = amount + incrementPace * difference
-                
         do {
-            try swiftData.addWalletEvent(Wallet(amount: newValue, dateCreated: .now))
+            
+            if let wallet = lastWallet {
+                currentWallet = wallet
+            } else {
+                guard let newWallet = try swiftData.createWallet(0.0, .now),
+                      addWallet(newWallet) else { return .none }
+                currentWallet = newWallet
+            }
+            
+            let currentDate: Date = .now
+            let difference = round(currentDate.timeIntervalSince(currentWallet.dateCreated))
+            let newValue = amount + incrementPace * difference
+            
+            guard let walletObject = try swiftData.createWallet(newValue, .now) else { return .none }
+            try swiftData.addWalletEvent(walletObject)
             let result = fetchLastWallet()
+            
             switch result {
             case let .success(items):
-                return EffectTask.send(items)
+                return Effect.send(items)
             case let .failure(error):
                 return .none
             }
@@ -61,37 +60,39 @@ struct WalletManager: WalletManagerProtocol {
         }
     }
     
-    func incomes() -> EffectTask<[Income]> {
+    func incomes() -> Effect<[Income]> {
         let result = fetchIncomes()
         switch result {
         case let .success(items):
-            return EffectTask.send(items)
+            return Effect.send(items)
         case let .failure(error):
             return .none
         }
     }
     
-    func liabilities() -> EffectTask<[Liability]> {
+    func liabilities() -> Effect<[Liability]> {
         let result = fetchLiabilities()
         switch result {
         case let .success(items):
-            return EffectTask.send(items)
+            return Effect.send(items)
         case let .failure(error):
             return .none
         }
     }
     
-    func addIncome(_ amount: Double) -> EffectTask<Bool> {
+    func addIncome(_ amount: Double) -> Effect<Bool> {
         do {
-            try swiftData.addIncome(Income(amount: amount, date: .now))
+            guard let incomeObject = try swiftData.createIncome(amount, .now) else { return .none }
+            try swiftData.addIncome(incomeObject)
             return .none
         } catch {
             return .none
         }    }
     
-    func addLiability(_ amount: Double) -> EffectTask<Bool> {
+    func addLiability(_ amount: Double) -> Effect<Bool> {
         do {
-            try swiftData.addLiability(Liability(amount: amount, date: .now))
+            guard let liabilityObject = try swiftData.createLiability(amount, .now) else { return .none }
+            try swiftData.addLiability(liabilityObject)
             return .none
         } catch {
             return .none
@@ -176,6 +177,6 @@ extension WalletManager: DependencyKey {
 
 extension WalletManager: TestDependencyKey {
     public static var previewValue = Self.noop
-    public static let testValue = Self(swiftData: Dependency(\.swiftData))
-    static let noop = Self(swiftData: Dependency(\.swiftData))
+    public static let testValue = Self()
+    static let noop = Self()
 }
