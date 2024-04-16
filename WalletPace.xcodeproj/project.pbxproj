@@ -10,18 +10,11 @@
 		4037D63D2BCD61BA003299CB /* WalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4037D63C2BCD61BA003299CB /* WalletViewModel.swift */; };
 		4053275E299EBA13007A65B1 /* ConfigWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4053275D299EBA13007A65B1 /* ConfigWalletView.swift */; };
 		40532760299EBA42007A65B1 /* ConfigWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4053275F299EBA42007A65B1 /* ConfigWallet.swift */; };
-		4066E98629ABD59400323475 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066E98529ABD59400323475 /* Provider.swift */; };
-		4066E98829ABD5CA00323475 /* ProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066E98729ABD5CA00323475 /* ProviderError.swift */; };
-		4066E98B29ABD61A00323475 /* Error+Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066E98A29ABD61A00323475 /* Error+Equality.swift */; };
-		4066E98D29ABD79D00323475 /* Provider+Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4066E98C29ABD79D00323475 /* Provider+Wallet.swift */; };
-		4094E16629A3E31A00EC6F65 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4094E16529A3E31A00EC6F65 /* AppDelegate.swift */; };
-		4094E16829A3E70800EC6F65 /* CoreDataTestKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4094E16729A3E70800EC6F65 /* CoreDataTestKey.swift */; };
-		4094E16A29A3EDEF00EC6F65 /* CoreDataLiveKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4094E16929A3EDEF00EC6F65 /* CoreDataLiveKey.swift */; };
 		40A6E3F72BCEA710007D8DB9 /* IncomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A6E3F62BCEA710007D8DB9 /* IncomeViewModel.swift */; };
 		40A6E3F92BCEA71C007D8DB9 /* LiabilityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A6E3F82BCEA71C007D8DB9 /* LiabilityViewModel.swift */; };
+		40A6E3FB2BCF05DD007D8DB9 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A6E3FA2BCF05DD007D8DB9 /* Helpers.swift */; };
 		40FD04B32997D8D500EE2132 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40FD04B22997D8D500EE2132 /* Assets.xcassets */; };
 		40FD04B62997D8D500EE2132 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40FD04B52997D8D500EE2132 /* Preview Assets.xcassets */; };
-		40FD04B82997D8D500EE2132 /* PersistentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FD04B72997D8D500EE2132 /* PersistentContainer.swift */; };
 		40FD04C62997D8D500EE2132 /* WalletPaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FD04C52997D8D500EE2132 /* WalletPaceTests.swift */; };
 		40FD04D02997D8D500EE2132 /* WalletPaceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FD04CF2997D8D500EE2132 /* WalletPaceUITests.swift */; };
 		40FD04D22997D8D500EE2132 /* WalletPaceUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FD04D12997D8D500EE2132 /* WalletPaceUITestsLaunchTests.swift */; };
@@ -36,7 +29,6 @@
 		80D45CA32BCA97FD00827195 /* Income.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D45CA22BCA97FD00827195 /* Income.swift */; };
 		80D45CA52BCA982100827195 /* Liability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D45CA42BCA982100827195 /* Liability.swift */; };
 		80D45CAC2BCBC05B00827195 /* WalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D45CAB2BCBC05B00827195 /* WalletManager.swift */; };
-		80DB9CA0299A8F0000A9999C /* CoreDataClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB9C9F299A8F0000A9999C /* CoreDataClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,26 +52,18 @@
 		4037D63C2BCD61BA003299CB /* WalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewModel.swift; sourceTree = "<group>"; };
 		4053275D299EBA13007A65B1 /* ConfigWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigWalletView.swift; sourceTree = "<group>"; };
 		4053275F299EBA42007A65B1 /* ConfigWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigWallet.swift; sourceTree = "<group>"; };
-		4066E98529ABD59400323475 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
-		4066E98729ABD5CA00323475 /* ProviderError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderError.swift; sourceTree = "<group>"; };
-		4066E98A29ABD61A00323475 /* Error+Equality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Equality.swift"; sourceTree = "<group>"; };
-		4066E98C29ABD79D00323475 /* Provider+Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Provider+Wallet.swift"; sourceTree = "<group>"; };
-		4094E16529A3E31A00EC6F65 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4094E16729A3E70800EC6F65 /* CoreDataTestKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestKey.swift; sourceTree = "<group>"; };
-		4094E16929A3EDEF00EC6F65 /* CoreDataLiveKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataLiveKey.swift; sourceTree = "<group>"; };
 		40A6E3F62BCEA710007D8DB9 /* IncomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeViewModel.swift; sourceTree = "<group>"; };
 		40A6E3F82BCEA71C007D8DB9 /* LiabilityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiabilityViewModel.swift; sourceTree = "<group>"; };
+		40A6E3FA2BCF05DD007D8DB9 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		40FD04AB2997D8D400EE2132 /* WalletPace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WalletPace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40FD04B22997D8D500EE2132 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		40FD04B52997D8D500EE2132 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		40FD04B72997D8D500EE2132 /* PersistentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentContainer.swift; sourceTree = "<group>"; };
 		40FD04BC2997D8D500EE2132 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		40FD04C12997D8D500EE2132 /* WalletPaceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WalletPaceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		40FD04C52997D8D500EE2132 /* WalletPaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletPaceTests.swift; sourceTree = "<group>"; };
 		40FD04CB2997D8D500EE2132 /* WalletPaceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WalletPaceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		40FD04CF2997D8D500EE2132 /* WalletPaceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletPaceUITests.swift; sourceTree = "<group>"; };
 		40FD04D12997D8D500EE2132 /* WalletPaceUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletPaceUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		40FD04E22997D9AD00EE2132 /* WalletPace.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WalletPace.xcdatamodel; sourceTree = "<group>"; };
 		40FD04E32997D9AD00EE2132 /* WalletPaceApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletPaceApp.swift; sourceTree = "<group>"; };
 		40FD04E72997DA0F00EE2132 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		40FD04E92997DB5D00EE2132 /* HomeFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeature.swift; sourceTree = "<group>"; };
@@ -90,7 +74,6 @@
 		80D45CA22BCA97FD00827195 /* Income.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Income.swift; sourceTree = "<group>"; };
 		80D45CA42BCA982100827195 /* Liability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Liability.swift; sourceTree = "<group>"; };
 		80D45CAB2BCBC05B00827195 /* WalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletManager.swift; sourceTree = "<group>"; };
-		80DB9C9F299A8F0000A9999C /* CoreDataClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,28 +125,8 @@
 			isa = PBXGroup;
 			children = (
 				80D45C9C2BCA798000827195 /* Database */,
-				4066E98429ABD57800323475 /* _Provider */,
-				80DB9C9C299A8C3A00A9999C /* _CoreData */,
 			);
 			path = Data;
-			sourceTree = "<group>";
-		};
-		4066E98429ABD57800323475 /* _Provider */ = {
-			isa = PBXGroup;
-			children = (
-				4066E98529ABD59400323475 /* Provider.swift */,
-				4066E98729ABD5CA00323475 /* ProviderError.swift */,
-				4066E98C29ABD79D00323475 /* Provider+Wallet.swift */,
-			);
-			path = _Provider;
-			sourceTree = "<group>";
-		};
-		4066E98929ABD60000323475 /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				4066E98A29ABD61A00323475 /* Error+Equality.swift */,
-			);
-			path = Shared;
 			sourceTree = "<group>";
 		};
 		40FD04A22997D8D400EE2132 = {
@@ -189,16 +152,13 @@
 		40FD04AD2997D8D400EE2132 /* WalletPace */ = {
 			isa = PBXGroup;
 			children = (
-				80D45CAA2BCBC03E00827195 /* Managers */,
-				80D45CA92BCBC02A00827195 /* Views */,
-				4066E98929ABD60000323475 /* Shared */,
-				4066E98329ABD4EA00323475 /* Data */,
 				40FD04B22997D8D500EE2132 /* Assets.xcassets */,
+				4066E98329ABD4EA00323475 /* Data */,
 				40FD04BC2997D8D500EE2132 /* Info.plist */,
+				80D45CAA2BCBC03E00827195 /* Managers */,
 				40FD04B42997D8D500EE2132 /* Preview Content */,
-				40FD04E12997D9AD00EE2132 /* WalletPace.xcdatamodeld */,
+				80D45CA92BCBC02A00827195 /* Views */,
 				40FD04E32997D9AD00EE2132 /* WalletPaceApp.swift */,
-				4094E16529A3E31A00EC6F65 /* AppDelegate.swift */,
 			);
 			path = WalletPace;
 			sourceTree = "<group>";
@@ -231,7 +191,6 @@
 		40FD04E62997D9F900EE2132 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				40334E8F2BCD616A0025976D /* ViewModels */,
 				40FD04E72997DA0F00EE2132 /* HomeView.swift */,
 				40FD04E92997DB5D00EE2132 /* HomeFeature.swift */,
 			);
@@ -270,6 +229,7 @@
 		80D45CA92BCBC02A00827195 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				40334E8F2BCD616A0025976D /* ViewModels */,
 				4053275C299EB9F6007A65B1 /* ConfigWallet */,
 				40FD04E62997D9F900EE2132 /* Home */,
 			);
@@ -280,19 +240,9 @@
 			isa = PBXGroup;
 			children = (
 				80D45CAB2BCBC05B00827195 /* WalletManager.swift */,
+				40A6E3FA2BCF05DD007D8DB9 /* Helpers.swift */,
 			);
 			path = Managers;
-			sourceTree = "<group>";
-		};
-		80DB9C9C299A8C3A00A9999C /* _CoreData */ = {
-			isa = PBXGroup;
-			children = (
-				40FD04B72997D8D500EE2132 /* PersistentContainer.swift */,
-				80DB9C9F299A8F0000A9999C /* CoreDataClient.swift */,
-				4094E16729A3E70800EC6F65 /* CoreDataTestKey.swift */,
-				4094E16929A3EDEF00EC6F65 /* CoreDataLiveKey.swift */,
-			);
-			path = _CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -432,29 +382,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				80D45CAC2BCBC05B00827195 /* WalletManager.swift in Sources */,
-				4066E98829ABD5CA00323475 /* ProviderError.swift in Sources */,
-				4094E16829A3E70800EC6F65 /* CoreDataTestKey.swift in Sources */,
 				40A6E3F72BCEA710007D8DB9 /* IncomeViewModel.swift in Sources */,
-				40FD04B82997D8D500EE2132 /* PersistentContainer.swift in Sources */,
-				80DB9CA0299A8F0000A9999C /* CoreDataClient.swift in Sources */,
 				40FD04E52997D9AD00EE2132 /* WalletPaceApp.swift in Sources */,
 				80D45CA52BCA982100827195 /* Liability.swift in Sources */,
 				80D45C9E2BCA7BE600827195 /* WPDatabase.swift in Sources */,
 				80D45CA12BCA97CD00827195 /* Wallet.swift in Sources */,
-				4066E98629ABD59400323475 /* Provider.swift in Sources */,
-				4066E98D29ABD79D00323475 /* Provider+Wallet.swift in Sources */,
 				4053275E299EBA13007A65B1 /* ConfigWalletView.swift in Sources */,
 				40FD04E82997DA0F00EE2132 /* HomeView.swift in Sources */,
 				80D45CA32BCA97FD00827195 /* Income.swift in Sources */,
 				40FD04EA2997DB5D00EE2132 /* HomeFeature.swift in Sources */,
-				4094E16A29A3EDEF00EC6F65 /* CoreDataLiveKey.swift in Sources */,
 				80D45C9A2BCA763C00827195 /* SchemaV1.swift in Sources */,
+				40A6E3FB2BCF05DD007D8DB9 /* Helpers.swift in Sources */,
 				40A6E3F92BCEA71C007D8DB9 /* LiabilityViewModel.swift in Sources */,
 				4037D63D2BCD61BA003299CB /* WalletViewModel.swift in Sources */,
-				4094E16629A3E31A00EC6F65 /* AppDelegate.swift in Sources */,
 				40532760299EBA42007A65B1 /* ConfigWallet.swift in Sources */,
 				80D45C992BCA763C00827195 /* Database.swift in Sources */,
-				4066E98B29ABD61A00323475 /* Error+Equality.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -800,19 +742,6 @@
 			productName = ComposableArchitecture;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		40FD04E12997D9AD00EE2132 /* WalletPace.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				40FD04E22997D9AD00EE2132 /* WalletPace.xcdatamodel */,
-			);
-			currentVersion = 40FD04E22997D9AD00EE2132 /* WalletPace.xcdatamodel */;
-			path = WalletPace.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 40FD04A32997D8D400EE2132 /* Project object */;
 }

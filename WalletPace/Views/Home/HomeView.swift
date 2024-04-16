@@ -13,41 +13,56 @@ struct HomeView: View {
     let store: StoreOf<Home>
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            NavigationView {
-//                ScrollView {
+            
+            GeometryReader { geometry in
+                
+                ScrollView {
                     VStack {
-                        
-                        Text("Your Balance").frame(alignment: .leading)
-                        Text("\(viewStore.amount, specifier: "%.4f")")
-                            .font(.title)
-                            .padding(.init(top: 0, leading: 16, bottom: 16, trailing: 16))
-                        
-                        
-                        
+                        ZStack {
+                            
+                            VStack {
+                                Spacer()
+                                Text("Your Balance")
+                                    .font(.caption)
+                                    .padding(.init(top: 0, leading: 16, bottom: 0, trailing: 0))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                Text("\(viewStore.amount, specifier: "%.2f €")")
+                                    .font(.largeTitle)
+                                    .fontWeight(.bold)
+                                    .padding(.init(top: 1, leading: 16, bottom: 32, trailing: 16))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                            .frame(width: geometry.size.width, height: geometry.size.height*0.3)
+                            .background(
+                                RoundedRectangle(cornerRadius: 40).fill(
+                                    LinearGradient(gradient: Gradient(colors: [.init(hex: "266A61"), .init(hex: "266A61").opacity(0.48)]), startPoint: .leading, endPoint: .trailing))
+                            )
+                            
+                            VStack {
+                                HStack {
+                                    Text("WalletPace")
+                                        .font(.headline)
+                                        .fontWeight(.bold)
+                                        .padding(.init(top: 64, leading: 0, bottom: 0, trailing: 0))
+                                    
+                                    Button { viewStore.send(.configWalletPresented(isPresented: true)) } label: {
+                                        Image(systemName: "gear")
+                                            .foregroundColor(.black)
+                                    }                                        
+                                    .padding(.init(top: 64, leading: 0, bottom: 0, trailing: 0))
+                                    .frame(alignment: .trailing)
+
+                                }.frame(maxWidth: .infinity)
+                                Spacer()
+                            }
+                        }
+                        Box(store: store, geometry: geometry).padding()
+                        Box(store: store, geometry: geometry).padding()
                     }
-                    
-//                    .frame(height: 0)
-//                    .cornerRadius(20)
-//                    .background(
-//                        LinearGradient(gradient: Gradient(colors: [.init(hex: "266A61"), .init(hex: "266A61").opacity(0.48)]), startPoint: .leading, endPoint: .trailing)
-//                    )
-                    
-//                    Box()
-//                    Box()
-//                    Spacer()
-//                }
-                .navigationBarTitle("Wallet Pace")
-//                .ignoresSafeArea()
-//                .background(
-//                    LinearGradient(gradient: Gradient(colors: [.init(hex: "266A61"), .init(hex: "266A61").opacity(0.48)]), startPoint: .leading, endPoint: .trailing)
-//                )
-//                .background(
-//                    LinearGradient(gradient: Gradient(colors: [.init(hex: "266A61"), .init(hex: "266A61").opacity(0.48)]), startPoint: .leading, endPoint: .trailing))
-                .navigationBarItems(trailing: Button { viewStore.send(.configWalletPresented(isPresented: true)) } label: {
-                    Image(systemName: "gear")
                 }
-                )
+                .ignoresSafeArea()
             }
+            
             
             .sheet(isPresented: viewStore.binding(
                 get: { $0.isConfigBeingPresented },
@@ -61,12 +76,25 @@ struct HomeView: View {
     }
 }
 
+private struct MiniBox: View {
+    let title: String
+    let subtitle: String
+    let width: Double
+    
+    var body: some View {
+        VStack {
+            Text(title)
+            Text(subtitle)
+        }
+        .frame(width: width, height: width*0.82)
+        .background(.red)
+    }
+}
+
 struct Box: View {
-//    let size: CGSize
-//    let factorHeight: CGFloat
-//    let content: () -> Content
-    
-    
+    let store: StoreOf<Home>
+    let geometry: GeometryProxy
+    var miniboxWidth: Double { return (geometry.size.width - (Double(16) * Double(4))) / 3 }
     //                                Box(size: metrics.size) {
     //                                    HStack(alignment: .center) {
     //                                        Text("\(viewStore.walletInAWeek, specifier: "%.2f")")
@@ -85,49 +113,31 @@ struct Box: View {
     //                                        Text("\(viewStore.incrementInAYear, specifier: "%.2f")")
     //                                    }
     //                                }
-    init() { }
     
     var body: some View {
-        
-        VStack {
-            Text("INCREASING SPEED")
-            Divider()
-            HStack {
-                VStack {
-                    Text("Second")
-                    Text("0,35€")
+            VStack {
+                Text("INCREASING SPEED")
+                Divider()
+                HStack {
+                    MiniBox(title: "Second", subtitle: "0.35€", width: miniboxWidth)
+                    MiniBox(title: "Minute", subtitle: "0.35€", width: miniboxWidth)
+                    MiniBox(title: "Hour", subtitle: "0.35€", width: miniboxWidth)
                 }
-                VStack {
-                    Text("Second")
-                    Text("0,35€")
+
+                
+                HStack {
+                    MiniBox(title: "Day", subtitle: "0.35€", width: miniboxWidth)
+                    MiniBox(title: "Month", subtitle: "0.35€", width: miniboxWidth)
+                    MiniBox(title: "Year", subtitle: "0.35€", width: miniboxWidth)
                 }
-                VStack {
-                    Text("Second")
-                    Text("0,35€")
-                }
-            }
-            HStack {
-                VStack {
-                    Text("Second")
-                    Text("0,35€")
-                }
-                VStack {
-                    Text("Second")
-                    Text("0,35€")
-                }
-                VStack {
-                    Text("Second")
-                    Text("0,35€")
-                }
-            }
+            }.background(.green)
         }
-    }
 }
 
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(store: Store(initialState: Home.State(), 
+        HomeView(store: Store(initialState: Home.State(),
                               reducer: { Home().body },
                               withDependencies: {
             $0.swiftData = .previewValue
@@ -152,7 +162,7 @@ extension Color {
         default:
             (a, r, g, b) = (1, 1, 1, 0)
         }
-
+        
         self.init(
             .sRGB,
             red: Double(r) / 255,
