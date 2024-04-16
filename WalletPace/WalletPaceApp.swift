@@ -105,8 +105,8 @@ struct WalletPaceApp: App {
 
             
             HomeView(store: Store(initialState: Home.State(), reducer: { Home().body }, withDependencies: {
-                $0.swiftData = .previewValue
-                $0.walletManager = .previewValue
+                $0.swiftData = .liveValue
+                $0.walletManager = .liveValue
             }))
         
             

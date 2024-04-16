@@ -22,8 +22,9 @@ protocol WalletManagerProtocol {
     func syncWallet() -> Effect<Wallet>
     func incomes() -> Effect<[Income]>
     func liabilities() -> Effect<[Liability]>
-    func addIncome(_ amount: Double) -> Effect<Bool>
-    func addLiability(_ amount: Double) -> Effect<Bool>
+    func addWallet(_ amount: Double) -> Void
+    func addIncome(_ amount: Double) -> Void
+    func addLiability(_ amount: Double) -> Void
 }
 
 struct WalletManager: WalletManagerProtocol {
@@ -80,22 +81,32 @@ struct WalletManager: WalletManagerProtocol {
         }
     }
     
-    func addIncome(_ amount: Double) -> Effect<Bool> {
+    func addIncome(_ amount: Double) -> Void {
         do {
-            guard let incomeObject = try swiftData.createIncome(amount, .now) else { return .none }
+            guard let incomeObject = try swiftData.createIncome(amount, .now) else { return }
             try swiftData.addIncome(incomeObject)
-            return .none
+            return
         } catch {
-            return .none
+            return
         }    }
     
-    func addLiability(_ amount: Double) -> Effect<Bool> {
+    func addLiability(_ amount: Double) -> Void {
         do {
-            guard let liabilityObject = try swiftData.createLiability(amount, .now) else { return .none }
+            guard let liabilityObject = try swiftData.createLiability(amount, .now) else { return }
             try swiftData.addLiability(liabilityObject)
-            return .none
+            return
         } catch {
-            return .none
+            return
+        }
+    }
+    
+    func addWallet(_ amount: Double) -> Void {
+        do {
+            guard let newWallet = try swiftData.createWallet(amount, .now) else { return }
+            _ = addWallet(newWallet)
+            return
+        } catch {
+            return
         }
     }
     

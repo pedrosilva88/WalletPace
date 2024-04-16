@@ -17,6 +17,8 @@
 		4094E16629A3E31A00EC6F65 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4094E16529A3E31A00EC6F65 /* AppDelegate.swift */; };
 		4094E16829A3E70800EC6F65 /* CoreDataTestKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4094E16729A3E70800EC6F65 /* CoreDataTestKey.swift */; };
 		4094E16A29A3EDEF00EC6F65 /* CoreDataLiveKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4094E16929A3EDEF00EC6F65 /* CoreDataLiveKey.swift */; };
+		40A6E3F72BCEA710007D8DB9 /* IncomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A6E3F62BCEA710007D8DB9 /* IncomeViewModel.swift */; };
+		40A6E3F92BCEA71C007D8DB9 /* LiabilityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A6E3F82BCEA71C007D8DB9 /* LiabilityViewModel.swift */; };
 		40FD04B32997D8D500EE2132 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40FD04B22997D8D500EE2132 /* Assets.xcassets */; };
 		40FD04B62997D8D500EE2132 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40FD04B52997D8D500EE2132 /* Preview Assets.xcassets */; };
 		40FD04B82997D8D500EE2132 /* PersistentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FD04B72997D8D500EE2132 /* PersistentContainer.swift */; };
@@ -65,6 +67,8 @@
 		4094E16529A3E31A00EC6F65 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4094E16729A3E70800EC6F65 /* CoreDataTestKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestKey.swift; sourceTree = "<group>"; };
 		4094E16929A3EDEF00EC6F65 /* CoreDataLiveKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataLiveKey.swift; sourceTree = "<group>"; };
+		40A6E3F62BCEA710007D8DB9 /* IncomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeViewModel.swift; sourceTree = "<group>"; };
+		40A6E3F82BCEA71C007D8DB9 /* LiabilityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiabilityViewModel.swift; sourceTree = "<group>"; };
 		40FD04AB2997D8D400EE2132 /* WalletPace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WalletPace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40FD04B22997D8D500EE2132 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		40FD04B52997D8D500EE2132 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -119,6 +123,8 @@
 			isa = PBXGroup;
 			children = (
 				4037D63C2BCD61BA003299CB /* WalletViewModel.swift */,
+				40A6E3F62BCEA710007D8DB9 /* IncomeViewModel.swift */,
+				40A6E3F82BCEA71C007D8DB9 /* LiabilityViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -428,6 +434,7 @@
 				80D45CAC2BCBC05B00827195 /* WalletManager.swift in Sources */,
 				4066E98829ABD5CA00323475 /* ProviderError.swift in Sources */,
 				4094E16829A3E70800EC6F65 /* CoreDataTestKey.swift in Sources */,
+				40A6E3F72BCEA710007D8DB9 /* IncomeViewModel.swift in Sources */,
 				40FD04B82997D8D500EE2132 /* PersistentContainer.swift in Sources */,
 				80DB9CA0299A8F0000A9999C /* CoreDataClient.swift in Sources */,
 				40FD04E52997D9AD00EE2132 /* WalletPaceApp.swift in Sources */,
@@ -442,6 +449,7 @@
 				40FD04EA2997DB5D00EE2132 /* HomeFeature.swift in Sources */,
 				4094E16A29A3EDEF00EC6F65 /* CoreDataLiveKey.swift in Sources */,
 				80D45C9A2BCA763C00827195 /* SchemaV1.swift in Sources */,
+				40A6E3F92BCEA71C007D8DB9 /* LiabilityViewModel.swift in Sources */,
 				4037D63D2BCD61BA003299CB /* WalletViewModel.swift in Sources */,
 				4094E16629A3E31A00EC6F65 /* AppDelegate.swift in Sources */,
 				40532760299EBA42007A65B1 /* ConfigWallet.swift in Sources */,

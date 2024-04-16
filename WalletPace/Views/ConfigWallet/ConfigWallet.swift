@@ -12,12 +12,11 @@ import ComposableArchitecture
 struct ConfigWallet {
     @ObservableState
     struct State: Equatable {
-        var wallet: Wallet?
-        var incomes: [Income] = []
-        var liabilities: [Liability] = []
+        var wallet: WalletViewModel?
+        var incomes: [IncomeViewModel] = []
+        var liabilities: [LiabilityViewModel] = []
         
-        
-        var currentWalletValue: String = ""
+        var currentWalletValue: String { "\(round(100 * (wallet?.amount ?? 0.0)) / 100)" }
         var currentAmountValue: String = ""
         var tabSelected: Tab = .incomes
         var isPresentingAddItemView: Bool = false
@@ -39,12 +38,13 @@ struct ConfigWallet {
         case onAppear
         case walletUpdated(String)
         case amountUpdated(String)
-        //        case newWalletAmount(value: Double)
         
         case walletResponse(Wallet)
-        case randomResponse(Bool)
-        case incomesResponse([Income])
-        case liabilitiesResponse([Liability])
+        case syncWallet
+        case syncIncomes
+        case syncLiabilities
+        case incomes([Income])
+        case liabilities([Liability])
         case tabSelected(State.Tab)
         case didTapToShowAddItemView
         case didTapToAddItem
@@ -62,17 +62,29 @@ struct ConfigWallet {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                guard let value = state.wallet?.amount else { return .none }
-                state.currentWalletValue = String(value)
-                return .none
-                
+                return .merge(
+                    walletManager.syncWallet()
+                        .map(ConfigWallet.Action.walletResponse)
+                        .cancellable(id: ConfigWalletCancelId()),
+                    
+                    walletManager.liabilities()
+                        .map(ConfigWallet.Action.liabilities)
+                        .cancellable(id: ConfigWalletCancelId()),
+                    
+                    walletManager.incomes()
+                        .map(ConfigWallet.Action.incomes)
+                        .cancellable(id: ConfigWalletCancelId())
+                )
             case .walletUpdated(let text):
-                state.currentWalletValue = text
                 guard let value = Double(text) else { return .none }
-                //              walletManager.addWallet(value)
-                //                  .map(ConfigWallet.Action.walletResponse)
-                //                  .cancellable(id: ConfigWalletCancelId())
+                walletManager.addWallet(value)
+                return .send(.syncWallet)
                 
+            case .syncWallet:
+                return walletManager.syncWallet()
+                    .map(ConfigWallet.Action.walletResponse)
+                    .cancellable(id: ConfigWalletCancelId())
+
             case .amountUpdated(let text):
                 state.currentAmountValue = text
                 return .none
@@ -93,18 +105,13 @@ struct ConfigWallet {
                 guard let amount = Double(state.currentAmountValue) else { return .none }
                 switch state.tabSelected {
                 case .incomes:
-                    
                     walletManager.addIncome(amount)
-                        .map(ConfigWallet.Action.randomResponse)
-                        .cancellable(id: ConfigWalletCancelId())
+                    return .send(.syncIncomes)
                     
                 case .liabilities:
-                    return walletManager.addLiability(amount)
-                        .map(ConfigWallet.Action.randomResponse)
-                        .cancellable(id: ConfigWalletCancelId())
+                    walletManager.addLiability(amount)
+                    return .send(.syncLiabilities)
                 }
-            case .randomResponse(_):
-                return .none
             case .didSwipeToRemoveIncome(let offsets):
                 //              offsets.forEach { index in
                 //                  let income = state.incomes[index]
@@ -126,11 +133,19 @@ struct ConfigWallet {
                 return .none
                 
             case .walletResponse(let wallet):
-                state.wallet = wallet
-            case .incomesResponse(let incomes):
-                state.incomes = incomes
-            case .liabilitiesResponse(let liabilities):
-                state.liabilities = liabilities
+                state.wallet = WalletViewModel(amount: wallet.amount ?? 0)
+            case .syncIncomes:
+                return walletManager.incomes()
+                    .map(ConfigWallet.Action.incomes)
+                    .cancellable(id: ConfigWalletCancelId())
+            case .incomes(let items):
+                state.incomes = items.compactMap({ IncomeViewModel(title: $0.title, amount: $0.amount) })
+            case .syncLiabilities:
+                return walletManager.liabilities()
+                    .map(ConfigWallet.Action.liabilities)
+                    .cancellable(id: ConfigWalletCancelId())
+            case .liabilities(let items):
+                state.liabilities = items.compactMap({ LiabilityViewModel(title: $0.title, amount: $0.amount) })
             }
             
             return .none

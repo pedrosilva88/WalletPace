@@ -40,14 +40,14 @@ struct ConfigaWalletView: View {
                                 switch viewStore.state.tabSelected {
                                 case .incomes:
                                     ForEach(viewStore.incomes) { item in
-                                        Text("Income: \(item.amount, specifier: "%.2f")€")
+                                        Text("Income: \(item.amount ?? 0, specifier: "%.2f")€")
                                     }
                                     .onDelete { offsets in
                                         viewStore.send(ConfigWallet.Action.didSwipeToRemoveIncome(offsets))
                                     }
                                 case .liabilities:
                                     ForEach(viewStore.liabilities) { item in
-                                        Text("Liability: \(item.amount, specifier: "%.2f")€")
+                                        Text("Liability: \(item.amount ?? 0, specifier: "%.2f")€")
                                     }
                                     .onDelete { offsets in
                                         viewStore.send(ConfigWallet.Action.didSwipeToRemoveLiability(offsets))

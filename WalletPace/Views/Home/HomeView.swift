@@ -53,7 +53,7 @@ struct HomeView: View {
                 get: { $0.isConfigBeingPresented },
                 send: { .configWalletPresented(isPresented: $0) }
             )) {
-                ConfigaWalletView.init(store: store.scope(state: \.configWallet, action: Home.Action.configWallet))
+                ConfigaWalletView.init(store: Store(initialState: ConfigWallet.State()) { ConfigWallet().body })
             }.task {
                 await viewStore.send(.task).finish()
             }
